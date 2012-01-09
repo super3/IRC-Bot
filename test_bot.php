@@ -12,10 +12,6 @@
  * @package IRCBot
  * @author Daniel Siepmann <coding.layne@me.com>
  * @author Super3 <me@super3.org>
- *
- * @encoding UTF-8
- *
- * @filesource
 **/
 
 // Configure PHP

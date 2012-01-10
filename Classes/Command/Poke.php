@@ -6,8 +6,9 @@ namespace Command;
 // arguments[1] == Poke Victim.
 class Poke extends \Library\IRCCommand {
     public function command() {
-        $this->IRCBot->sendDataToServer( 'PRIVMSG ' . $this->arguments[0] . ' :'. chr(1). 'ACTION pokes '.
-        $this->arguments[1]. chr(1) );
+            $this->IRCBot->sendDataToServer( 'PRIVMSG ' . $this->arguments[0] .
+            ' :'. chr(1). 'ACTION pokes '.
+            $this->arguments[1]. chr(1) );
     }
 }
 ?>

@@ -141,8 +141,9 @@
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         public function __construct() {
-            $this->logFile .= date( 'd-m-Y' ) . '.log';
-            $this->logFileHandler = fopen( $this->logFile, 'w+' );
+            // Commented this out so the script will work. 
+            // $this->logFile .= date( 'd-m-Y' ) . '.log';
+            // $this->logFileHandler = fopen( $this->logFile, 'w+' );
         }
 
         /**
@@ -295,7 +296,8 @@
             if (empty( $status )) {
                 $status = 'LOG';
             }
-            //fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
+            // Commented this out so the script will work. 
+            // fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
         }
 
     }

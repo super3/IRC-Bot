@@ -9,7 +9,6 @@
      * you keep this header as an attribution to my work. Enjoy!
      *
      * @license http://creativecommons.org/licenses/by/3.0/
-     * @link    https://bitbucket.org/pogosheep/irc-bot
      *
      * @package IRCBot
      * @subpackage Library

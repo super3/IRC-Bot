@@ -7,7 +7,6 @@
      * you keep this header as an attribution to my work. Enjoy!
      *
      * @license http://creativecommons.org/licenses/by/3.0/
-     * @link    https://bitbucket.org/pogosheep/irc-bot
      *
      * @package IRCBot
      * @subpackage Library
@@ -63,8 +62,8 @@
         /**
          * __construct
          *
-         * @param integer $numberOfArguments
-         * @param name $nameOfCommand
+         * @param   integer $numberOfArguments The number of arguments, this command will allow.
+         * @param   name    $nameOfCommand     The name of the command, used for showing the help. Use -1 to allow unlimited arguments.
          *
          * @author Daniel Siepmann <coding.layne@me.com>
          */
@@ -72,7 +71,17 @@
             $this->numberOfArguments = (integer) $numberOfArguments;
         }
 
+        /**
+         * Executes the command.
+         *
+         * @todo Don't return, use say or poke to show the help instead.
+         *
+         * @param \Library\IRCBot $IRCBot    The IRC-Bot, that will execute the command.
+         * @param array           $arguments The assigned arguments.
+         * @return type
+         */
         public function executeCommand( \Library\IRCBot $IRCBot, array $arguments ) {
+            // If a number of arguments is defined,
             if ($this->numberOfArguments !== -1 && count( $arguments ) !== $this->numberOfArguments) {
                 return $this->getHelp();
             }
@@ -95,7 +104,6 @@
         public function command() {
             echo 'fail';
             flush();
-            exit;
             throw new Exception( 'You have to overwrite the "command" method and the "executeCommand". Call the parent "executeCommand" and execute your custom "command".' );
         }
 

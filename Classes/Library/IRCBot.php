@@ -12,7 +12,6 @@
      * @copyright  2010, The Nystic Network
      * @license    http://creativecommons.org/licenses/by/3.0/
      * @link       http://wildphp.com (Visit for updated versions and more free scripts!)
-     * @link       https://bitbucket.org/pogosheep/irc-bot
      *
      *
      * @package IRCBot
@@ -37,51 +36,48 @@
      */
     class IRCBot {
 
-
-        // Configuration
-
-
         /**
          * The server you want to connect to.
          * @var string
          */
-        public $server = '';
+        private $server = '';
+
         /**
          * The port of the server you want to connect to.
          * @var integer
          */
-        public $port = 0;
+        private $port = 0;
+
         /**
          * A list of all channels the bot should connect to.
          * @var array
          */
-        public $channel = array( );
+        private $channel = array ( );
+
         /**
          * The name of the bot.
          * @var string
          */
-        public $name = '';
+        private $name = '';
+
         /**
          * The nick of the bot.
          * @var string
          */
-        public $nick = '';
+        private $nick = '';
+
         /**
          * The number of reconnects before the bot stops running.
          * @var integer
          */
-        public $maxReconnects = 0;
+        private $maxReconnects = 0;
 
         /**
          * Complete file path to the log file.
          * Configure the path, the filename is generated and added.
          * @var string
          */
-        public $logFile = 'Logs/';
-
-
-        // Private properties
-
+        private $logFile = '';
 
         /**
          * The TCP/IP connection.
@@ -132,24 +128,26 @@
          */
         private $logFileHandler = null;
 
-
         /**
-         * Construct item, opens the server connection, logs the bot in
-         * @param array $config
+         * Creates a new IRCBot.
          *
-         * @author Super3 <admin@wildphp.com>
+         * @param array $configuration The whole configuration, you can use the setters, too.
+         * @return void
          * @author Daniel Siepmann <coding.layne@me.com>
          */
-        public function __construct() {
-            // Commented this out so the script will work. 
-            // $this->logFile .= date( 'd-m-Y' ) . '.log';
-            // $this->logFileHandler = fopen( $this->logFile, 'w+' );
+        public function __construct(array $configuration = array()) {
+            if (count( $configuration ) === 0) {
+                return;
+            }
+
+            $this->setWholeConfiguration( $configuration );
         }
 
         /**
+         * Connects the bot to the server.
          *
-         * @param string  $server The server. Eg: irc.quakenet.org
-         * @param integer $port   The port. Eg: 6667
+         * @author Super3 <admin@wildphp.com>
+         * @author Daniel Siepmann <coding.layne@me.com>
          */
         public function connectToServer() {
             if (empty( $this->nickToUse )) {
@@ -168,7 +166,6 @@
 
         /**
          * This is the workhorse function, grabs the data from the server and displays on the browser
-         * @param type $config
          *
          * @author Super3 <admin@wildphp.com>
          * @author Daniel Siepmann <coding.layne@me.com>
@@ -180,28 +177,33 @@
                 $data = fgets( $this->socket, 256 );
 
                 // Check for some special situations and react:
-
+                // The nickname is in use, create a now one using a counter and try again.
                 if (stripos( $data, 'Nickname is already in use.' ) !== false) {
                     $this->nickToUse = $this->nick . (++$this->nickCounter);
                     $this->sendDataToServer( 'NICK ' . $this->nickToUse );
                 }
 
+                // We're welcome. Let's join the configured channel/-s.
                 if (stripos( $data, 'Welcome' ) !== false) {
                     $this->join_channel( $this->channel );
                 }
 
+                // Something realy went wrong.
                 if (stripos( $data, 'Registration Timeout' ) !== false ||
                     stripos( $data, 'Erroneous Nickname' ) !== false ||
                     stripos( $data, 'Closing Link' ) !== false) {
+                    // If the error occurs to often, create a log entry and exit.
                     if ($this->numberOfReconnects >= (int) $this->maxReconnects) {
                         $this->log( 'Closing Link after "' . $this->numberOfReconnects . '" reconnects.', 'EXIT' );
                         exit;
                     }
 
+                    // Notice the error.
                     $this->log( $data, 'CONNECTION LOST' );
-                    // Wait before reconnect:
+                    // Wait before reconnect ...
                     sleep( 60 * 1 );
                     ++$this->numberOfReconnects;
+                    // ... and reconnect.
                     $this->connectToServer( $this->server, $this->port );
                     return;
                 }
@@ -211,20 +213,22 @@
                 $this->log( $data );
 
 
-                // Play ping pong with server:
+                // Play ping pong with server, to stay connected:
                 if ($args[0] == 'PING') {
-                    $this->sendDataToServer( 'PONG ' . $args[1] ); //Plays ping-pong with the server to stay connected.
+                    $this->sendDataToServer( 'PONG ' . $args[1] );
                 }
 
-                // Nothing from the server, step over.
+                // Nothing new from the server, step over.
                 if ($args[0] == 'PING' || !isset( $args[3] )) {
                     continue;
                 }
 
-                // Explode get the command.
+                // Explode the server response and get the command.
                 $command = substr( trim( FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
                 $arguments = array_slice( $args, 4 );
                 unset( $args );
+
+                // Check if the response was a command.
                 if (stripos( $command, $this->commandPrefix ) === 0) {
                     $command = ucfirst( substr( $command, 1 ) );
 
@@ -268,8 +272,8 @@
         }
 
         /**
-         * Joins a channel, used in the join function.
-         * @param type $channel
+         * Joins one or multiple channel/-s.
+         * @param mixed $channel An string or an array containing the name/-s of the channel.
          *
          * @author Super3 <admin@wildphp.com>
          */
@@ -293,11 +297,105 @@
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         private function log( $log, $status = '' ) {
+            if (is_null( $this->logFileHandler )) {
+                return false;
+            }
             if (empty( $status )) {
                 $status = 'LOG';
             }
-            // Commented this out so the script will work. 
-            // fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
+            fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
+        }
+
+
+        // Setters
+
+        /**
+         * Sets the whole configuration.
+         *
+         * @param array $configuration The whole configuration, you can use the setters, too.
+         * @author Daniel Siepmann <coding.layne@me.com>
+         */
+        private function setWholeConfiguration( array $configuration ) {
+            $this->setServer( $configuration['server'] );
+            $this->setPort( $configuration['port'] );
+            $this->setChannel( $configuration['channel'] );
+            $this->setName( $configuration['name'] );
+            $this->setNick( $configuration['nick'] );
+            $this->setMaxReconnects( $configuration['macReconnects'] );
+            $this->setLogFile( $configuration['logFile'] );
+        }
+
+        /**
+         * Sets the server.
+         * E.g. irc.quakenet.org or irc.freenode.org
+         * @param string $server The server to set.
+         */
+        public function setServer( $server ) {
+            $this->server = (string) $server;
+        }
+
+        /**
+         * Sets the port.
+         * E.g. 6667
+         * @param integer $port The port to set.
+         */
+        public function setPort( $port ) {
+            $this->port = (int) $port;
+        }
+
+        /**
+         * Sets the channel.
+         * E.g. '#testchannel' or array('#testchannel','#helloWorldChannel')
+         * @param string|array $channel The channel as string, or a set of channels as array.
+         */
+        public function setChannel( $channel ) {
+            $this->channel = (array) $channel;
+        }
+
+        /**
+         * Sets the name of the bot.
+         * "Yes give me a name!"
+         * @param string $name The name of the bot.
+         */
+        public function setName( $name ) {
+            $this->name = (string) $name;
+        }
+
+        /**
+         * Sets the nick of the bot.
+         * "Yes give me a nick too. I love nicks."
+         *
+         * @param string $nick The nick of the bot.
+         */
+        public function setNick( $nick ) {
+            $this->nick = (string) $nick;
+        }
+
+        /**
+         * Sets the limit of reconnects, before the bot exits.
+         * @param integer $maxReconnects The number of reconnects before the bot exits.
+         */
+        public function setMaxReconnects( $maxReconnects ) {
+            $this->maxReconnects = (int) $maxReconnects;
+        }
+
+        /**
+         * Sets the filepath to the log. Specify the folder and a prefix.
+         * E.g. /Users/yourname/logs/ircbot- That will result in a logfile like the following:
+         * /Users/yourname/logs/ircbot-11-12-2012.log
+         *
+         * @param string $logFile The filepath and prefix for a logfile.
+         */
+        public function setLogFile( $logFile ) {
+            $this->logFile = (string) $logFile;
+            if (!empty( $this->logFile )) {
+                $logFilePath = basename( $this->logFile );
+                if (!is_dir( $logFilePath )) {
+                    mkdir( $logFilePath, 0777, true );
+                }
+                $this->logFile .= date( 'd-m-Y' ) . '.log';
+                $this->logFileHandler = fopen( $this->logFile, 'w+' );
+            }
         }
 
     }

@@ -13,7 +13,7 @@ Features and Functions
 
 Usage and Output
 -------
-<random-user> !say #wildphp hello there
-<wildphp-bot> hello there
-<random-user> !poke #wildphp random-user
-* wildphp-bot pokes random-user
+    <random-user> !say #wildphp hello there
+    <wildphp-bot> hello there
+    <random-user> !poke #wildphp random-user
+    * wildphp-bot pokes random-user

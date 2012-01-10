@@ -4,7 +4,8 @@ A basic and simple IRC Bot built in PHP (using sockets). Designed to run off a l
 
 Features and Functions
 -------
-* !say #channel Message - Says message in the specified IRC channel
-* !say username Message - Says message in the specified IRC user
+* !say #channel Message - Says message in the specified IRC channel.
+* !say username Message - Says message in the specified IRC user.
+* !poke #channel username - Pokes the specified IRC user.
 * !restart - Quits and restarts the script.
 * !shutdown - Quits and stops the script.

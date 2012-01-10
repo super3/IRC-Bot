@@ -35,6 +35,7 @@ $bot->maxReconnects = 1;
 
 // Add commands to the bot.
 $bot->addCommand( new Command\Say(-1) );
+$bot->addCommand( new Command\Poke(-1) );
 $bot->addCommand( new Command\Quit );
 $bot->addCommand( new Command\Restart );
 

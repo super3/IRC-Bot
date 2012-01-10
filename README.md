@@ -9,9 +9,11 @@ Features and Functions
 * !say username Message - Says message in the specified IRC user.
 * !poke #channel username - Pokes the specified IRC user.
 * !restart - Quits and restarts the script.
-* !shutdown - Quits and stops the script.
+* !quit - Quits and stops the script.
 
 Usage and Output
 -------
-<random-user> !say #nystic_chat hello there
+<random-user> !say #wildphp hello there
 <wildphp-bot> hello there
+<random-user> !poke #wildphp random-user
+* wildphp-bot pokes random-user

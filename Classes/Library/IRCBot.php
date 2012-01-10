@@ -8,7 +8,7 @@
      * and use this script commercially/non-commercially. My only requirement is that
      * you keep this header as an attribution to my work. Enjoy!
      *
-     * @author     Super3boy <admin@wildphp.com>
+     * @author     Super3 <admin@wildphp.com>
      * @copyright  2010, The Nystic Network
      * @license    http://creativecommons.org/licenses/by/3.0/
      * @link       http://wildphp.com (Visit for updated versions and more free scripts!)
@@ -32,7 +32,7 @@
      * @package IRCBot
      * @subpackage Library
      *
-     * @author Super3boy <admin@wildphp.com>
+     * @author Super3 <admin@wildphp.com>
      * @author Daniel Siepmann <coding.layne@me.com>
      */
     class IRCBot {
@@ -137,7 +137,7 @@
          * Construct item, opens the server connection, logs the bot in
          * @param array $config
          *
-         * @author Super3boy <admin@wildphp.com>
+         * @author Super3 <admin@wildphp.com>
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         public function __construct() {
@@ -169,7 +169,7 @@
          * This is the workhorse function, grabs the data from the server and displays on the browser
          * @param type $config
          *
-         * @author Super3boy <admin@wildphp.com>
+         * @author Super3 <admin@wildphp.com>
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         private function main() {
@@ -270,7 +270,7 @@
          * Joins a channel, used in the join function.
          * @param type $channel
          *
-         * @author Super3boy <admin@wildphp.com>
+         * @author Super3 <admin@wildphp.com>
          */
         private function join_channel( $channel ) {
             if (is_array( $channel )) {

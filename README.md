@@ -17,3 +17,19 @@ Usage and Output
     <wildphp-bot> hello there
     <random-user> !poke #wildphp random-user
     * wildphp-bot pokes random-user
+
+General Command Ideas
+-------
+* timeout - Bot leaves for the specified number of minutes (HTTP refresh).
+* stat - Generate some brief stats about the bot.
+
+Fun Command Ideas
+-------
+* cookie - Gives the specified user a cookie.
+* milk - Gives the specified user a glass of milk.
+* hug -  Gives the specified a hug.
+
+Bot Option Ideas
+-------
+* joinMsg - Says this message whenever it joins a channel.
+* greetMsg - Says this message (via PM) to each new user to the channel.

@@ -44,4 +44,5 @@
     $bot->connectToServer();
 
     // Nothing more possible, the bot runs until script ends.
+    // Push Test
 ?>

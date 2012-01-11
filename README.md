@@ -5,8 +5,8 @@ Designed to run off a local LAMP, WAMP, or MAMP stack.
 
 Features and Functions
 -------
-* !say [#channel] [Message] - Says message in the specified IRC channel.
-* !say [username] [Message] - Says message in the specified IRC user.
+* !say [#channel] [message] - Says message in the specified IRC channel.
+* !say [username] [message] - Says message in the specified IRC user.
 * !poke [#channel] [username] - Pokes the specified IRC user.
 * !timeout [seconds] - Bot leaves for the specified number of seconds.
 * !restart - Quits and restarts the script.

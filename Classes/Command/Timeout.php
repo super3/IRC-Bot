@@ -16,8 +16,12 @@ class Timeout extends \Library\IRCCommand {
     public function command() {
         $this->IRCBot->sendDataToServer('QUIT');
         // Restart HTML
-        echo "<meta http-equiv=\"refresh\" content=\"".$this->arguments[0]."\">";
-        exit;
+        // echo "<meta http-equiv=\"refresh\" content=\"".$this->arguments[0]."\">";
+        
+        // Restart CLI
+        $this->IRCBot->sendDataToServer('QUIT');
+        sleep( $this->arguments[0] );
+        $this->IRCBot->connectToServer();
     }
 }
 ?>

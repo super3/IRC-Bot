@@ -16,6 +16,7 @@ class Say extends \Library\IRCCommand {
      * Sends the arguments to the channel, like say from a user.
      */
     public function command() {
+        // Server: PRIVMSG [#channel]or[user] : [message]
         $this->IRCBot->sendDataToServer( 'PRIVMSG ' . $this->arguments[0] . ' : ' .
         implode( ' ', array_slice( $this->arguments, 1 ) ) );
     }

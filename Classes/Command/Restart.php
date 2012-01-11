@@ -16,11 +16,8 @@ class Restart extends \Library\IRCCommand {
     public function command() {
         // Exit from Sever
         $this->IRCBot->sendDataToServer('QUIT');
-        
-        // Restart Browser Page with an HTTP Refresh
-        // echo "<meta http-equiv=\"refresh\" content=\"3\">";
 
-        // Restart CLI
+        // Reconnect to Server
         $this->IRCBot->connectToServer();
     }
 }

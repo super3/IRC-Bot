@@ -14,11 +14,11 @@ class Timeout extends \Library\IRCCommand {
     /**
      * The bot disconnects for the specified number of seconds.
      */
-    public function command() { 
+    public function command() {
         // Quit, sleep, and reconnect ( CLI and HTML )
-        $this->IRCBot->sendDataToServer('QUIT');
+        $this->connection->sendData('QUIT');
         sleep( $this->arguments[0] );
-        $this->IRCBot->connectToServer();
+        $this->connection->connectToServer();
     }
 }
 ?>

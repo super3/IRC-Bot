@@ -1,6 +1,6 @@
 <?php
     /**
-     * This file contains the class: "Autoloader".
+     * IRC Bot
      *
      * LICENSE: This source file is subject to Creative Commons Attribution
      * 3.0 License that is available through the world-wide-web at the following URI:
@@ -8,7 +8,7 @@
      * and use this script commercially/non-commercially. My only requirement is that
      * you keep this header as an attribution to my work. Enjoy!
      *
-     * @license http://creativecommons.org/licenses/by/3.0/
+     * @license    http://creativecommons.org/licenses/by/3.0/
      *
      * @package IRCBot
      * @subpackage Library

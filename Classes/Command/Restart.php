@@ -3,7 +3,7 @@
 namespace Command;
 
 /**
- * Restarts the bot. 
+ * Restarts the bot.
  *
  * @package IRCBot
  * @subpackage Command
@@ -11,14 +11,14 @@ namespace Command;
  */
 class Restart extends \Library\IRCCommand {
     /**
-     * Restarts the bot. 
+     * Restarts the bot.
      */
     public function command() {
         // Exit from Sever
-        $this->IRCBot->sendDataToServer('QUIT');
+        $this->connection->sendData('QUIT');
 
         // Reconnect to Server
-        $this->IRCBot->connectToServer();
+        $this->connection->connect();
     }
 }
 ?>

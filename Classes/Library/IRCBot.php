@@ -8,11 +8,7 @@
      * and use this script commercially/non-commercially. My only requirement is that
      * you keep this header as an attribution to my work. Enjoy!
      *
-     * @author     Super3 <admin@wildphp.com>
-     * @copyright  2010, The Nystic Network
      * @license    http://creativecommons.org/licenses/by/3.0/
-     * @link       http://wildphp.com (Visit for updated versions and more free scripts!)
-     *
      *
      * @package IRCBot
      * @subpackage Library
@@ -37,16 +33,10 @@
     class IRCBot {
 
         /**
-         * The server you want to connect to.
-         * @var string
+         * Holds the server connection.
+         * @var Library\IRCConnection
          */
-        private $server = '';
-
-        /**
-         * The port of the server you want to connect to.
-         * @var integer
-         */
-        private $port = 0;
+        private $connection = null;
 
         /**
          * A list of all channels the bot should connect to.
@@ -78,12 +68,6 @@
          * @var string
          */
         private $logFile = '';
-
-        /**
-         * The TCP/IP connection.
-         * @var type
-         */
-        private $socket;
 
         /**
          * The nick of the bot.
@@ -136,11 +120,21 @@
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         public function __construct(array $configuration = array()) {
+
+            $this->connection = new \Library\SocketConnection;
+
             if (count( $configuration ) === 0) {
                 return;
             }
 
             $this->setWholeConfiguration( $configuration );
+        }
+
+        /**
+         * Cleanup handlers.
+         */
+        public function __destruct() {
+            fclose( $this->logFileHandler );
         }
 
         /**
@@ -153,14 +147,17 @@
             if (empty( $this->nickToUse )) {
                 $this->nickToUse = $this->nick;
             }
-            if (is_resource( $this->socket )) {
-                fclose( $this->socket );
+
+            if ($this->connection->isConnected()) {
+                $this->connection->disconnect();
             }
+
             $this->log( 'The following commands are known by the bot: "' . implode( ',', array_keys( $this->commands ) ) . '".', 'INFO' );
-            $this->log( 'Connecting to server "' . $this->server . '" on port "' . $this->port . '".', 'INFO' );
-            $this->socket = fsockopen( $this->server, $this->port );
+
+            $this->connection->connect();
             $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
             $this->sendDataToServer( 'NICK ' . $this->nickToUse );
+
             $this->main();
         }
 
@@ -174,7 +171,7 @@
             do {
                 $command = '';
                 $arguments = array ( );
-                $data = fgets( $this->socket, 256 );
+                $data = $this->connection->getData();
 
                 // Check for some special situations and react:
                 // The nickname is in use, create a now one using a counter and try again.
@@ -204,7 +201,7 @@
                     sleep( 60 * 1 );
                     ++$this->numberOfReconnects;
                     // ... and reconnect.
-                    $this->connectToServer( $this->server, $this->port );
+                    $this->connection->connect();
                     return;
                 }
 
@@ -239,10 +236,8 @@
                         continue;
                     }
 
-                    // Execute command:
-                    $command = $this->commands[$command];
-                    /* @var $command IRCCommand */
-                    $command->executeCommand( $this, $arguments );
+                    $this->executeCommand( $command, $arguments );
+
                 }
             } while (true);
         }
@@ -256,8 +251,17 @@
         public function addCommand( IRCCommand $command ) {
             $commandName = explode( '\\', get_class( $command ) );
             $commandName = $commandName[count( $commandName ) - 1];
+            // TODO add connection to command
+            $command->setIRCConnection( $this->connection );
             $this->commands[$commandName] = $command;
             $this->log( 'The following Command was added to the Bot: "' . $commandName . '".', 'INFO' );
+        }
+
+        protected function executeCommand( $commandName, array $arguments ) {
+            // Execute command:
+            $command = $this->commands[$commandName];
+            /* @var $command IRCCommand */
+            $command->executeCommand( $arguments );
         }
 
         /**
@@ -268,7 +272,7 @@
          */
         public function sendDataToServer( $cmd ) {
             $this->log( $cmd, 'COMMAND' );
-            fputs( $this->socket, $cmd . "\r\n" );
+            $this->connection->sendData( $cmd );
         }
 
         /**
@@ -306,7 +310,6 @@
             fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
         }
 
-
         // Setters
 
         /**
@@ -331,7 +334,7 @@
          * @param string $server The server to set.
          */
         public function setServer( $server ) {
-            $this->server = (string) $server;
+            $this->connection->setServer( $server );
         }
 
         /**
@@ -340,7 +343,7 @@
          * @param integer $port The port to set.
          */
         public function setPort( $port ) {
-            $this->port = (int) $port;
+            $this->connection->setPort( $port );
         }
 
         /**
@@ -389,7 +392,7 @@
         public function setLogFile( $logFile ) {
             $this->logFile = (string) $logFile;
             if (!empty( $this->logFile )) {
-                $logFilePath = basename( $this->logFile );
+                $logFilePath = dirname( $this->logFile );
                 if (!is_dir( $logFilePath )) {
                     mkdir( $logFilePath, 0777, true );
                 }

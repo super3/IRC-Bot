@@ -14,7 +14,7 @@ class Quit extends \Library\IRCCommand {
      * Leave IRC altogether. This disconnects from the server.
      */
     public function command() {
-        $this->IRCBot->sendDataToServer('QUIT');
+        $this->connection->sendData('QUIT');
         exit;
     }
 }

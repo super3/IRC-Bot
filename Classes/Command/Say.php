@@ -12,13 +12,24 @@ namespace Command;
  * @author Daniel Siepmann <coding.layne@me.com>
  */
 class Say extends \Library\IRCCommand {
+
+    /**
+     * The number of arguments the command needs.
+     *
+     * @var integer
+     */
+    protected $numberOfArguments = -1;
+
     /**
      * Sends the arguments to the channel, like say from a user.
+     *
+     * IRC-Syntax: PRIVMSG [#channel]or[user] : [message]
      */
     public function command() {
-        // Server: PRIVMSG [#channel]or[user] : [message]
-        $this->IRCBot->sendDataToServer( 'PRIVMSG ' . $this->arguments[0] . ' : ' .
-        implode( ' ', array_slice( $this->arguments, 1 ) ) );
+        $this->connection->sendData(
+            'PRIVMSG ' . $this->arguments[0] . ' : ' .
+            implode( ' ', array_slice( $this->arguments, 1 ) )
+        );
     }
 }
 ?>

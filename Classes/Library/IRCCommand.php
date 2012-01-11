@@ -31,9 +31,9 @@
 
         /**
          * Reference to the IRCBot.
-         * @var \Library\IRCBot
+         * @var \Library\IRCConnection
          */
-        protected $IRCBot = null;
+        protected $connection = null;
 
         /**
          * Contains all given arguments.
@@ -80,13 +80,11 @@
          * @param array           $arguments The assigned arguments.
          * @return type
          */
-        public function executeCommand( \Library\IRCBot $IRCBot, array $arguments ) {
+        public function executeCommand( array $arguments ) {
             // If a number of arguments is defined,
             if ($this->numberOfArguments !== -1 && count( $arguments ) !== $this->numberOfArguments) {
-                return $this->getHelp();
+                // Show help
             }
-
-            $this->IRCBot = $IRCBot;
             $this->arguments = $arguments;
 
             // Execute the command.
@@ -99,12 +97,20 @@
 
         /**
          * Overwrite this method for your needs.
-         * This method is calles if the command get's executed.
+         * This method is called if the command get's executed.
          */
         public function command() {
             echo 'fail';
             flush();
             throw new Exception( 'You have to overwrite the "command" method and the "executeCommand". Call the parent "executeCommand" and execute your custom "command".' );
+        }
+
+        /**
+         * Set's the IRC Bot, so we can use it to send data to the server.
+         * @param \Library\IRCBot $ircConnection
+         */
+        public function setIRCConnection( \Library\IRCConnection $ircConnection ) {
+            $this->connection = $ircConnection;
         }
 
     }

@@ -3,7 +3,8 @@
 namespace Command;
 
 /**
- * Restarts the bot using a http refresh.
+ * The bot disconnects for the specified number of seconds
+ * arguments[0] == Number of seconds to disconnect.
  *
  * @package IRCBot
  * @subpackage Command
@@ -11,14 +12,10 @@ namespace Command;
  */
 class Timeout extends \Library\IRCCommand {
     /**
-     * Restarts the bot using a http refresh.
+     * The bot disconnects for the specified number of seconds.
      */
-    public function command() {
-        $this->IRCBot->sendDataToServer('QUIT');
-        // Restart HTML
-        // echo "<meta http-equiv=\"refresh\" content=\"".$this->arguments[0]."\">";
-        
-        // Restart CLI
+    public function command() { 
+        // Quit, sleep, and reconnect ( CLI and HTML )
         $this->IRCBot->sendDataToServer('QUIT');
         sleep( $this->arguments[0] );
         $this->IRCBot->connectToServer();

@@ -30,7 +30,7 @@
     $bot->setName( 'wildbot' );
     $bot->setNick( 'wildbot' );
     $bot->setMaxReconnects( 1 );
-    $bot->setLogFile( '' );
+    $bot->setLogFile( 'log' );
 
     // Add commands to the bot.
     $bot->addCommand( new Command\Say( -1 ) );

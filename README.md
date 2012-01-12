@@ -8,6 +8,8 @@ Features and Functions
 * !say [#channel] [message] - Says message in the specified IRC channel.
 * !say [username] [message] - Says message in the specified IRC user.
 * !poke [#channel] [username] - Pokes the specified IRC user.
+* !join [#channel] - Joins the specified channel.
+* !part [#channel] - Parts the specified channel.
 * !timeout [seconds] - Bot leaves for the specified number of seconds.
 * !restart - Quits and restarts the script.
 * !quit - Quits and stops the script.

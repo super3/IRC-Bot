@@ -221,6 +221,7 @@
                 }
 
                 // Explode the server response and get the command.
+                $source = substr( trim( FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
                 $command = substr( trim( FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
                 $arguments = array_slice( $args, 4 );
                 unset( $args );
@@ -236,8 +237,7 @@
                         continue;
                     }
 
-                    $this->executeCommand( $command, $arguments );
-
+                    $this->executeCommand( $source, $command, $arguments );
                 }
             } while (true);
         }
@@ -257,11 +257,11 @@
             $this->log( 'The following Command was added to the Bot: "' . $commandName . '".', 'INFO' );
         }
 
-        protected function executeCommand( $commandName, array $arguments ) {
+        protected function executeCommand( $source, $commandName, array $arguments ) {
             // Execute command:
             $command = $this->commands[$commandName];
             /* @var $command IRCCommand */
-            $command->executeCommand( $arguments );
+            $command->executeCommand( $arguments, $source );
         }
 
         /**

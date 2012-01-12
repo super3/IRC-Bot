@@ -19,13 +19,6 @@ class Say extends \Library\IRCCommand {
      * @var integer
      */
     protected $numberOfArguments = -1;
-    
-     /**
-     * The command's help text.
-     *
-     * @var string
-     */
-    protected $help = '!say [#channel]or[user] [message]';
 
     /**
      * Sends the arguments to the channel, like say from a user.

@@ -78,17 +78,19 @@
          * @param array           $arguments The assigned arguments.
          * @return type
          */
-        public function executeCommand( array $arguments ) {
+        public function executeCommand( array $arguments, $source ) {
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text. 
             if ($this->numberOfArguments != -1 && count( $arguments ) != $this->numberOfArguments) {
                 // Show help text.
-                $this->connection->sendData( 'PRIVMSG #wildphp :Incorrect Arugments. Usage: ' .
+                $this->connection->sendData( 'PRIVMSG '. $source. ' :Incorrect Arguments. Usage: ' .
                 $this->getHelp());
             }
             else {
+                // Set Arguments 
+                $this->arguments = $arguments;
                 // Execute the command.
-                 $this->command();
+                $this->command();
             }
         }
 

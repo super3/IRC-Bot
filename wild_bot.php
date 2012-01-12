@@ -27,14 +27,16 @@
     $bot->setServer( 'irc.freenode.org' );
     $bot->setPort( 6667 );
     $bot->setChannel( array('#wildphp') );
-    $bot->setName( 'wildbot' );
-    $bot->setNick( 'wildbot' );
+    $bot->setName( 'wildbotz' );
+    $bot->setNick( 'wildbotz' );
     $bot->setMaxReconnects( 1 );
-    $bot->setLogFile( 'log' );
+    $bot->setLogFile( 'C:\\Users\\Super3\\Code\\IRC-Bot\\log\\test-' );
 
     // Add commands to the bot.
-    $bot->addCommand( new Command\Say( -1 ) );
+    $bot->addCommand( new Command\Say );
     $bot->addCommand( new Command\Poke( 2 ) );
+    $bot->addCommand( new Command\Join( 1 ) );
+    $bot->addCommand( new Command\Part( 1 ) );
     $bot->addCommand( new Command\Timeout( 1 ) );
     $bot->addCommand( new Command\Quit );
     $bot->addCommand( new Command\Restart );

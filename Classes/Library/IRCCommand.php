@@ -57,7 +57,7 @@
          *
          * @var string
          */
-        private $help = '';
+        protected $help = '';
 
         /**
          * __construct
@@ -74,25 +74,26 @@
         /**
          * Executes the command.
          *
-         * @todo Don't return, use say or poke to show the help instead.
-         *
          * @param \Library\IRCBot $IRCBot    The IRC-Bot, that will execute the command.
          * @param array           $arguments The assigned arguments.
          * @return type
          */
         public function executeCommand( array $arguments ) {
-            // If a number of arguments is defined,
-            if ($this->numberOfArguments !== -1 && count( $arguments ) !== $this->numberOfArguments) {
-                // Show help
+            // If a number of arguments is incorrect then run the command, if
+            // not then show the relevant help text. 
+            if ($this->numberOfArguments != -1 && count( $arguments ) != $this->numberOfArguments) {
+                // Show help text.
+                $this->connection->sendData( 'PRIVMSG #wildphp :Incorrect Arugments. Usage: ' .
+                $this->getHelp());
             }
-            $this->arguments = $arguments;
-
-            // Execute the command.
-            $this->command();
+            else {
+                // Execute the command.
+                 $this->command();
+            }
         }
 
         private function getHelp() {
-
+           return $this->help;
         }
 
         /**

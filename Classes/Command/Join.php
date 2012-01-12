@@ -12,11 +12,11 @@ namespace Command;
  */
 class Join extends \Library\IRCCommand {
     /**
-    * The number of arguments the command needs.
+    * The command's help text.
     *
-    * @var integer
+    * @var string
     */
-    protected $numberOfArguments = 1;
+    protected $help = '!join [#channel]';
 
     /**
      * Joins the specified channel. 

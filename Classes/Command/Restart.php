@@ -11,6 +11,13 @@ namespace Command;
  */
 class Restart extends \Library\IRCCommand {
     /**
+    * The command's help text.
+    *
+    * @var string
+    */
+    protected $help = '!restart';
+    
+    /**
      * Restarts the bot.
      */
     public function command() {

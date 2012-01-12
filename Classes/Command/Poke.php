@@ -13,6 +13,13 @@ namespace Command;
  */
 class Poke extends \Library\IRCCommand {
     /**
+    * The command's help text.
+    *
+    * @var string
+    */
+    protected $help = '!poke [#channel]or[user] [user]';
+    
+    /**
      * Sends the arguments to the channel, like say from a user.
      *
      * IRC-Syntax: PRIVMSG [#channel]or[user] :0x01Action pokes [User]0x01

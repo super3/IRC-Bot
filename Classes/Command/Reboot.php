@@ -11,6 +11,13 @@ namespace Command;
  */
 class Reboot extends \Library\IRCCommand {
     /**
+    * The command's help text.
+    *
+    * @var string
+    */
+    protected $help = '!reboot';
+    
+    /**
      * Reboots the bot.
      * 
      * When running from a browser page the bot roboots using

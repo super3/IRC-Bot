@@ -11,6 +11,13 @@ namespace Command;
  */
 class Quit extends \Library\IRCCommand {
     /**
+    * The command's help text.
+    *
+    * @var string
+    */
+    protected $help = '!quit';
+    
+    /**
      * Leave IRC altogether. This disconnects from the server.
      */
     public function command() {

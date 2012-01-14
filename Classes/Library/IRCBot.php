@@ -221,6 +221,7 @@
                 }
 
                 // Explode the server response and get the command.
+                // $source finds the channel or user that the command originated.
                 $source = substr( trim( FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
                 $command = substr( trim( FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
                 $arguments = array_slice( $args, 4 );
@@ -324,7 +325,7 @@
             $this->setChannel( $configuration['channel'] );
             $this->setName( $configuration['name'] );
             $this->setNick( $configuration['nick'] );
-            $this->setMaxReconnects( $configuration['macReconnects'] );
+            $this->setMaxReconnects( $configuration['maxReconnects'] );
             $this->setLogFile( $configuration['logFile'] );
         }
 

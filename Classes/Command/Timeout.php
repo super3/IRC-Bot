@@ -33,7 +33,7 @@ class Timeout extends \Library\IRC\Command\Base {
     public function command() {
         // Quit, sleep, and reconnect ( CLI and HTML )
         $this->connection->sendData('QUIT');
-        sleep( $this->arguments[0] );
+        sleep( (int)($this->arguments[0]) );
         $this->connection->connect();
     }
 }

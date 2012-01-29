@@ -1,5 +1,7 @@
 <?php
     /**
+     * IRC Bot
+     *
      * LICENSE: This source file is subject to Creative Commons Attribution
      * 3.0 License that is available through the world-wide-web at the following URI:
      * http://creativecommons.org/licenses/by/3.0/.  Basically you are free to adapt
@@ -21,7 +23,7 @@
     spl_autoload_register( 'Autoloader::load' );
 
     // Create the bot.
-    $bot = new Library\IRCBot();
+    $bot = new Library\IRC\Bot();
 
     // Configure the bot.
     $bot->setServer( 'irc.freenode.org' );

@@ -28,12 +28,12 @@ class Reboot extends \Library\IRC\Command\Base {
      */
     public function command() {
         // Restart Browser Page
-        echo "<meta http-equiv=\"refresh\" content=\"3\">";
-        exit;
+//        echo "<meta http-equiv=\"refresh\" content=\"3\">";
+//        exit;
 
         // TODO: Restart CLI
         $this->connection->sendData('QUIT');
-        $this->connection->connect();
+        $this->bot->connectToServer();
     }
 }
 ?>

@@ -119,7 +119,7 @@
          * @return void
          * @author Daniel Siepmann <coding.layne@me.com>
          */
-        public function __construct(array $configuration = array()) {
+        public function __construct( array $configuration = array ( ) ) {
 
             $this->connection = new \Library\IRC\Connection\Socket;
 
@@ -252,8 +252,8 @@
         public function addCommand( \Library\IRC\Command\Base $command ) {
             $commandName = explode( '\\', get_class( $command ) );
             $commandName = $commandName[count( $commandName ) - 1];
-            // TODO add connection to command
             $command->setIRCConnection( $this->connection );
+            $command->setIRCBot( $this );
             $this->commands[$commandName] = $command;
             $this->log( 'The following Command was added to the Bot: "' . $commandName . '".', 'INFO' );
         }

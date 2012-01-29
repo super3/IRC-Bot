@@ -30,10 +30,16 @@
     abstract class Base {
 
         /**
-         * Reference to the IRCBot.
-         * @var \Library\IRCConnection
+         * Reference to the IRC Connection.
+         * @var \Library\IRC\Connection
          */
         protected $connection = null;
+
+        /**
+         * Reference to the IRC Bot
+         * @var \Lirary\IRC\Bot
+         */
+        protected $bot = null;
 
         /**
          * Contains all given arguments.
@@ -97,11 +103,19 @@
         }
 
         /**
-         * Set's the IRC Bot, so we can use it to send data to the server.
-         * @param \Library\IRCBot $ircConnection
+         * Set's the IRC Connection, so we can use it to send data to the server.
+         * @param \Library\IRC\Connection $ircConnection
          */
         public function setIRCConnection( \Library\IRC\Connection $ircConnection ) {
             $this->connection = $ircConnection;
+        }
+
+        /**
+         * Set's the IRC Bot, so we can use it to send data to the server.
+         * @param \Library\IRCBot $ircBot
+         */
+        public function setIRCBot( \Library\IRC\Bot $ircBot ) {
+            $this->bot = $ircBot;
         }
 
     }

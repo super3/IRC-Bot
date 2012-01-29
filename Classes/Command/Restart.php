@@ -25,7 +25,7 @@ class Restart extends \Library\IRC\Command\Base {
         $this->connection->sendData('QUIT');
 
         // Reconnect to Server
-        $this->connection->connect();
+        $this->bot->connectToServer();
     }
 }
 ?>

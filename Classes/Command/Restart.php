@@ -9,14 +9,14 @@ namespace Command;
  * @subpackage Command
  * @author Super3 <admin@wildphp.com>
  */
-class Restart extends \Library\IRCCommand {
+class Restart extends \Library\IRC\Command\Base {
     /**
     * The command's help text.
     *
     * @var string
     */
     protected $help = '!restart';
-    
+
     /**
      * Restarts the bot.
      */

@@ -11,14 +11,23 @@ namespace Command;
  * @subpackage Command
  * @author Super3 <admin@wildphp.com>
  */
-class Poke extends \Library\IRCCommand {
+class Poke extends \Library\IRC\Command\Base {
     /**
     * The command's help text.
     *
     * @var string
     */
     protected $help = '!poke [#channel]or[user] [user]';
-    
+
+    /**
+     * The number of arguments the command needs.
+     *
+     * You have to define this in the command.
+     *
+     * @var integer
+     */
+    protected $numberOfArguments = 2;
+
     /**
      * Sends the arguments to the channel, like say from a user.
      *

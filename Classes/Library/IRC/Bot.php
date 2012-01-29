@@ -19,7 +19,7 @@
      * @author Daniel Siepmann <coding.layne@me.com>
      */
 
-    namespace Library;
+    namespace Library\IRC;
 
     /**
      * A simple IRC Bot with basic features.
@@ -30,11 +30,11 @@
      * @author Super3 <admin@wildphp.com>
      * @author Daniel Siepmann <coding.layne@me.com>
      */
-    class IRCBot {
+    class Bot {
 
         /**
          * Holds the server connection.
-         * @var Library\IRCConnection
+         * @var \Library\IRC\Connection
          */
         private $connection = null;
 
@@ -121,7 +121,7 @@
          */
         public function __construct(array $configuration = array()) {
 
-            $this->connection = new \Library\SocketConnection;
+            $this->connection = new \Library\IRC\Connection\Socket;
 
             if (count( $configuration ) === 0) {
                 return;
@@ -222,8 +222,8 @@
 
                 // Explode the server response and get the command.
                 // $source finds the channel or user that the command originated.
-                $source = substr( trim( FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
-                $command = substr( trim( FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
+                $source = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
+                $command = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
                 $arguments = array_slice( $args, 4 );
                 unset( $args );
 
@@ -249,7 +249,7 @@
          * @param IRCCommand $command The command to add.
          * @author Daniel Siepmann <coding.layne@me.com>
          */
-        public function addCommand( IRCCommand $command ) {
+        public function addCommand( \Library\IRC\Command\Base $command ) {
             $commandName = explode( '\\', get_class( $command ) );
             $commandName = $commandName[count( $commandName ) - 1];
             // TODO add connection to command
@@ -308,7 +308,7 @@
             if (empty( $status )) {
                 $status = 'LOG';
             }
-            fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
+            fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . \Library\FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
         }
 
         // Setters

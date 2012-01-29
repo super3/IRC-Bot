@@ -19,7 +19,7 @@
      * @author Daniel Siepmann <coding.layne@me.com>
      */
 
-    namespace Library;
+    namespace Library\IRC;
 
     /**
      * Interface for irc connection.
@@ -30,7 +30,7 @@
      *
      * @author Daniel Siepmann <coding.layne@me.com>
      */
-    interface IRCConnection {
+    interface Connection {
 
         /**
          * Establishs the connection to the server.

@@ -3,14 +3,14 @@
 namespace Command;
 
 /**
- * Joins the specified channel. 
+ * Joins the specified channel.
  * arguments[0] == Channel to join.
- * 
+ *
  * @package IRCBot
  * @subpackage Command
  * @author Super3 <admin@wildphp.com>
  */
-class Join extends \Library\IRCCommand {
+class Join extends \Library\IRC\Command\Base {
     /**
     * The command's help text.
     *
@@ -18,9 +18,19 @@ class Join extends \Library\IRCCommand {
     */
     protected $help = '!join [#channel]';
 
+
     /**
-     * Joins the specified channel. 
-     * 
+     * The number of arguments the command needs.
+     *
+     * You have to define this in the command.
+     *
+     * @var integer
+     */
+    protected $numberOfArguments = 1;
+
+    /**
+     * Joins the specified channel.
+     *
      * IRC-Syntax: JOIN [#channel]
      */
     public function command() {

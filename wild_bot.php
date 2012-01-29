@@ -33,11 +33,11 @@
     $bot->setLogFile( 'C:\\Users\\Super3\\Code\\IRC-Bot\\log\\test-' );
 
     // Add commands to the bot.
-    $bot->addCommand( new Command\Say(-1) );
-    $bot->addCommand( new Command\Poke( 2 ) );
-    $bot->addCommand( new Command\Join( 1 ) );
-    $bot->addCommand( new Command\Part( 1 ) );
-    $bot->addCommand( new Command\Timeout( 1 ) );
+    $bot->addCommand( new Command\Say );
+    $bot->addCommand( new Command\Poke );
+    $bot->addCommand( new Command\Join );
+    $bot->addCommand( new Command\Part );
+    $bot->addCommand( new Command\Timeout );
     $bot->addCommand( new Command\Quit );
     $bot->addCommand( new Command\Restart );
     $bot->addCommand( new Command\Reboot );

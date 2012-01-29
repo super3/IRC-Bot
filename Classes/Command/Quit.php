@@ -9,14 +9,14 @@ namespace Command;
  * @subpackage Command
  * @author Daniel Siepmann <coding.layne@me.com>
  */
-class Quit extends \Library\IRCCommand {
+class Quit extends \Library\IRC\Command\Base {
     /**
     * The command's help text.
     *
     * @var string
     */
     protected $help = '!quit';
-    
+
     /**
      * Leave IRC altogether. This disconnects from the server.
      */

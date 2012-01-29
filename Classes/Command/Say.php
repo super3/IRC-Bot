@@ -11,7 +11,13 @@ namespace Command;
  * @subpackage Command
  * @author Daniel Siepmann <coding.layne@me.com>
  */
-class Say extends \Library\IRCCommand {
+class Say extends \Library\IRC\Command\Base {
+    /**
+     * The command's help text.
+     *
+     * @var string
+     */
+    protected $help = '!say [#channel|username] whatever you want to say';
 
     /**
      * The number of arguments the command needs.

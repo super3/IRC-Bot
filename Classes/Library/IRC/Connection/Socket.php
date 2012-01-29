@@ -19,7 +19,7 @@
      * @author Daniel Siepmann <coding.layne@me.com>
      */
 
-    namespace Library;
+    namespace Library\IRC\Connection;
 
     /**
      * Delivers a connection via socket to the IRC server.
@@ -28,7 +28,7 @@
      * @subpackage Library
      * @author Daniel Siepmann <Daniel.Siepmann@wfp2.com>
      */
-    class SocketConnection implements \Library\IRCConnection {
+    class Socket implements \Library\IRC\Connection {
 
         /**
          * The server you want to connect to.

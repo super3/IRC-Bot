@@ -10,14 +10,23 @@ namespace Command;
  * @subpackage Command
  * @author Super3 <admin@wildphp.com>
  */
-class Timeout extends \Library\IRCCommand {
+class Timeout extends \Library\IRC\Command\Base {
     /**
      * The command's help text.
      *
      * @var string
      */
     protected $help = '!timeout [seconds]';
-    
+
+    /**
+     * The number of arguments the command needs.
+     *
+     * You have to define this in the command.
+     *
+     * @var integer
+     */
+    protected $numberOfArguments = 1;
+
     /**
      * The bot disconnects for the specified number of seconds.
      */

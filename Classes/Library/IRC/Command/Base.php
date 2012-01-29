@@ -18,7 +18,7 @@
      * @filesource
      */
 
-    namespace Library;
+    namespace Library\IRC\Command;
 
     /**
      * An IRC command.
@@ -27,7 +27,7 @@
      * @subpackage Library
      * @author Daniel Siepmann <daniel.siepmann@me.com>
      */
-    abstract class IRCCommand {
+    abstract class Base {
 
         /**
          * Reference to the IRCBot.
@@ -60,18 +60,6 @@
         protected $help = '';
 
         /**
-         * __construct
-         *
-         * @param   integer $numberOfArguments The number of arguments, this command will allow.
-         * @param   name    $nameOfCommand     The name of the command, used for showing the help. Use -1 to allow unlimited arguments.
-         *
-         * @author Daniel Siepmann <coding.layne@me.com>
-         */
-        function __construct( $numberOfArguments = 0 ) {
-            $this->numberOfArguments = (integer) $numberOfArguments;
-        }
-
-        /**
          * Executes the command.
          *
          * @param \Library\IRCBot $IRCBot    The IRC-Bot, that will execute the command.
@@ -80,14 +68,14 @@
          */
         public function executeCommand( array $arguments, $source ) {
             // If a number of arguments is incorrect then run the command, if
-            // not then show the relevant help text. 
+            // not then show the relevant help text.
             if ($this->numberOfArguments != -1 && count( $arguments ) != $this->numberOfArguments) {
                 // Show help text.
                 $this->connection->sendData( 'PRIVMSG '. $source. ' :Incorrect Arguments. Usage: ' .
                 $this->getHelp());
             }
             else {
-                // Set Arguments 
+                // Set Arguments
                 $this->arguments = $arguments;
                 // Execute the command.
                 $this->command();
@@ -112,7 +100,7 @@
          * Set's the IRC Bot, so we can use it to send data to the server.
          * @param \Library\IRCBot $ircConnection
          */
-        public function setIRCConnection( \Library\IRCConnection $ircConnection ) {
+        public function setIRCConnection( \Library\IRC\Connection $ircConnection ) {
             $this->connection = $ircConnection;
         }
 

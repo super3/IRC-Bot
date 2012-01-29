@@ -1,0 +1,27 @@
+{
+    "name": "Daniel Siepmann <coding.layne@me.com>",
+    "description": "The configuration file for laynes bot",
+    "connection": {
+        "server": {
+            "sever": "irc.freenode.org",
+            "port": 6667
+        },
+        "identity": {
+            "name": "laynes-bot",
+            "nick": "laynes-bot"
+        },
+        "maxReconnects": 1,
+        "channels": [
+            "layne-test"
+        ]
+    },
+    "commands": {
+        "packages": [
+
+        ],
+        "commands": [
+
+        ]
+    },
+    "logFile": "/Users/daniel/Sites/dev/irc/irc-bot/logs/test-"
+}

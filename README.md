@@ -2,12 +2,11 @@ IRC-BOT
 =============
 A basic IRC Bot built in PHP (using sockets) with wonderful OOP. 
 Designed to run off a local LAMP, WAMP, or MAMP stack.
-The IRC Bot can be run in either a Browser window, or a Commnad Line.
 
 Web
 -------
-Official Website - http://wildphp.com
-Source Code - https://github.com/pogosheep/IRC-Bot
+* Official Website - http://wildphp.com
+* Source Code - https://github.com/pogosheep/IRC-Bot
 
 Features and Functions
 -------
@@ -26,3 +25,11 @@ Sample Usage and Output
     <wildphp-bot> hello there
     <random-user> !poke #wildphp random-user
     * wildphp-bot pokes random-user
+    
+Install and Run
+-------
+    1. Place the IRC-Bot folder in your server directory or htdocs. 
+    2. Create or edit a config file with your details 
+       (layne_bot.php and wild_bot.php are two working examples).
+    3. Open that config file in your browser, or a command line.
+    4. The bot will run as long as the command line or browser is open. 

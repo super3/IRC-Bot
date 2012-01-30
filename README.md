@@ -17,14 +17,7 @@ Features and Functions
 * !part [#channel] - Parts the specified channel.
 * !timeout [seconds] - Bot leaves for the specified number of seconds.
 * !restart - Quits and restarts the script.
-* !quit - Quits and stops the script.
-
-Sample Usage and Output
--------
-    <random-user> !say #wildphp hello there
-    <wildphp-bot> hello there
-    <random-user> !poke #wildphp random-user
-    * wildphp-bot pokes random-user
+* !quit - Quits and stops the script. 
     
 Install and Run
 -------
@@ -33,3 +26,10 @@ Install and Run
        (layne_bot.php and wild_bot.php are two working examples).
     3. Open that config file in your browser, or a command line.
     4. The bot will run as long as the command line or browser is open. 
+
+Sample Usage and Output
+-------
+    <random-user> !say #wildphp hello there
+    <wildphp-bot> hello there
+    <random-user> !poke #wildphp random-user
+    * wildphp-bot pokes random-user

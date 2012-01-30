@@ -11,6 +11,7 @@
      * @license http://creativecommons.org/licenses/by/3.0/
      *
      * @package IRCBot
+     * @subpackage Library
      * @author Daniel Siepmann <coding.layne@me.com>
      *
      * @encoding UTF-8
@@ -23,6 +24,7 @@
      * A minimum autoloader
      *
      * @package IRCBot
+     * @subpackage Library
      * @author Daniel Siepmann <coding.layne@me.com>
      */
     class Autoloader {

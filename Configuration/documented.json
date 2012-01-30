@@ -31,13 +31,14 @@
         ]
     },
     "commandPrefix": "!",
+    // Define error handling.
     "errors": {
-        "reporting": true,
-        "display": true,
-        "logging": false
+        "reporting": true, // false if errors should be ignored where possible.
+        "display": true,   // true if you want to see errors.
+        "logging": false   // true if you want to log errors via logging. Remeber to enable logging.
     },
     "logging": {
-        "enabled": true,
-        "file": "/Users/daniel/Sites/dev/irc/irc-bot/logs/test-"
+        "enabled": true,   // true if logging should be enabled.
+        "file": "/Users/daniel/Sites/dev/irc/irc-bot/logs/test-" // The file containing the log.
     }
 }

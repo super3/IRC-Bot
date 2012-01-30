@@ -39,47 +39,10 @@
         private $connection = null;
 
         /**
-         * A list of all channels the bot should connect to.
-         * @var array
+         * Holds the complete configuration.
+         * @var \Library\IRC\Configuration\Configuration
          */
-        private $channel = array ( );
-
-        /**
-         * The name of the bot.
-         * @var string
-         */
-        private $name = '';
-
-        /**
-         * The nick of the bot.
-         * @var string
-         */
-        private $nick = '';
-
-        /**
-         * The number of reconnects before the bot stops running.
-         * @var integer
-         */
-        private $maxReconnects = 0;
-
-        /**
-         * Complete file path to the log file.
-         * Configure the path, the filename is generated and added.
-         * @var string
-         */
-        private $logFile = '';
-
-        /**
-         * The nick of the bot.
-         * @var string
-         */
-        private $nickToUse = '';
-
-        /**
-         * Defines the prefix for all commands interacting with the bot.
-         * @var String
-         */
-        private $commandPrefix = '!';
+        private $configuration = null;
 
         /**
          * All of the messages both server and client
@@ -100,13 +63,6 @@
         private $numberOfReconnects = 0;
 
         /**
-         * All available commands.
-         * Commands are type of IRCCommand
-         * @var array
-         */
-        private $commands = array ( );
-
-        /**
          * Holds the reference to the file.
          * @var type
          */
@@ -115,19 +71,14 @@
         /**
          * Creates a new IRCBot.
          *
-         * @param array $configuration The whole configuration, you can use the setters, too.
+         * @param array $configurationFile The whole configuration, you can use the setters, too.
          * @return void
          * @author Daniel Siepmann <coding.layne@me.com>
          */
-        public function __construct(array $configuration = array()) {
+        public function __construct( $configurationFile ) {
+
 
             $this->connection = new \Library\IRC\Connection\Socket;
-
-            if (count( $configuration ) === 0) {
-                return;
-            }
-
-            $this->setWholeConfiguration( $configuration );
         }
 
         /**

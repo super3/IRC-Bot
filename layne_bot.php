@@ -38,7 +38,6 @@
     $bot->addCommand( new Command\Say );
     $bot->addCommand( new Command\Poke );
     $bot->addCommand( new Command\Timeout );
-    $bot->addCommand( new Command\Reboot() );
     $bot->addCommand( new Command\Quit );
     $bot->addCommand( new Command\Restart );
 

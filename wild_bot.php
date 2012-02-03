@@ -42,7 +42,6 @@
     $bot->addCommand( new Command\Timeout );
     $bot->addCommand( new Command\Quit );
     $bot->addCommand( new Command\Restart );
-    $bot->addCommand( new Command\Reboot );
 
     // Connect to the server.
     $bot->connectToServer();

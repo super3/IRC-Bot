@@ -5,13 +5,13 @@ Designed to run off a local LAMP, WAMP, or MAMP stack.
 
 Web
 -------
-* [Our Official Website] [http://wildphp.com]
-* [The Source Code] [https://github.com/pogosheep/IRC-Bot]
+* [Our Official Website](http://wildphp.com)
+* [The Source Code](https://github.com/pogosheep/IRC-Bot)
 
 Collaborators
 -------
-* [Super3] [http://super3.org] - Frontend
-* [Pogosheep] [https://plus.google.com/108868126361135455230/about] - Backend
+* [Super3](http://super3.org) - Frontend
+* [Pogosheep](https://plus.google.com/108868126361135455230/about)- Backend
 
 Features and Functions
 -------

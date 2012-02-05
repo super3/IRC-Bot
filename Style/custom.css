@@ -1,0 +1,11 @@
+/* 
+    Document   : custom.css
+    Created on : Feb 4, 2012, 12:17:10 AM
+    Author     : Super3
+    Description:
+        Modify the original bootstrap css. 
+*/
+
+body {
+    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}

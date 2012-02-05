@@ -4,35 +4,25 @@
 </div>
 <div class="well span8">
     <h1>IRC-Bot</h1>    
-        <p>A basic IRC Bot built in PHP (using sockets) with wonderful OOP. 
-        Designed to run off a local LAMP, WAMP, or MAMP stack.</p>
-    <h2>Web</h2>
-        <ul>
-            <li><a href="http://wildphp.com">Our Official Website</a></li>
-            <li><a href="https://github.com/pogosheep/IRC-Bot">The Source Code</a></li>
-        </ul>
-    <h2>Collaborators</h2>
-        <ul>
-            <li><a href="http://super3.org">Super3</a> - Frontend</li>
-            <li><a href="https://plus.google.com/108868126361135455230/about">Pogosheep</a> - Backend</li>
-        </ul>            
-    <h2>Features and Functions</h2>
-        <ul>
-            <li>!say [#channel] [message] - Says message in the specified IRC channel.</li>
-            <li>!say [username] [message] - Says message in the specified IRC user.</li>
-            <li>!poke [#channel] [username] - Pokes the specified IRC user.</li>
-            <li>!join [#channel] - Joins the specified channel.</li>
-            <li>!part [#channel] - Parts the specified channel.</li>
-            <li>!timeout [seconds] - Bot leaves for the specified number of seconds.</li>
-            <li>!restart - Quits and restarts the script.</li>
-            <li>!quit - Quits and stops the script. </li>
-        </ul>
-    <h2>Sample Usage and Output</h2>
-    <div>
-        &lt;random-user&gt; !say #wildphp hello there<br/>
-        &lt;wildphp-bot&gt; hello there<br/>
-        &lt;random-user&gt; !poke #wildphp random-user<br/>
-        * wildphp-bot pokes random-user<br/>
-    </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at vestibulum quam. Quisque fermentum nunc at 
+           tortor porta at tincidunt nisl fringilla. Phasellus pulvinar tristique nibh nec viverra. Nulla quis augue lorem,
+           ultrices tincidunt felis. Proin libero orci, imperdiet a dapibus eu, aliquet non mi. Suspendisse potenti. Cras
+           aliquam semper ante ac volutpat. Donec mollis fermentum velit, eu vulputate nunc imperdiet sit amet. Nunc vel
+           mauris arcu, non ornare mi. Aliquam malesuada mollis ultrices. Sed faucibus scelerisque pretium. Ut sit amet
+           vulputate quam. Morbi accumsan, ligula ut interdum mattis, leo nisi fringilla ligula, sed tempor sapien ante 
+           nec lectus. Nunc nunc urna, tristique ut condimentum sit amet, egestas eleifend arcu. Sed quis quam sed dolor
+           fermentum interdum.
+           <br/><br/>
+           Sed et felis ligula. Curabitur non purus sit amet ante egestas semper quis vehicula massa. Nulla facilisi. Nullam
+           ut ipsum justo, sit amet egestas eros. Quisque accumsan, massa a vehicula accumsan, sem arcu accumsan mi, vitae 
+           aliquet tortor risus eget neque. Praesent sed massa mi, in auctor turpis. Fusce lobortis imperdiet arcu, ut 
+           cursus est mattis et. In laoreet vulputate libero id porttitor. Nam sodales dapibus tortor at dapibus.
+           <br/><br/>
+           Suspendisse eu velit vel eros tempus tempus. Sed ac risus et massa interdum fringilla aliquam ac ante. Duis porta, 
+           elit at placerat bibendum, mauris tortor dapibus lectus, nec elementum tellus libero et justo. Nullam imperdiet 
+           euismod nunc, quis adipiscing lectus varius nec. Proin at nisl ac tellus cursus pretium vitae et eros. Phasellus 
+           eget justo at neque elementum vehicula. Nam quis dui justo. Phasellus volutpat rhoncus tortor quis faucibus. In 
+           pretium ligula et eros volutpat scelerisque eu sit amet orci. Nam ut magna sed mauris dictum malesuada. Donec 
+           pulvinar feugiat risus id ultrices.</p>
 </div>
 <?php include_once('footer.php'); ?>

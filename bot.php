@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr id="space">
             <td>1</td>
             <td>Sample Bot</td>
             <td>chat.freenode.net</td>

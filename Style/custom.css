@@ -6,9 +6,11 @@
         Modify the original bootstrap css. 
 */
 
+/* Main Tags */
 body {
     margin: 0px;
     padding: 10% 0px 0px 0px;
 }
 
+/* Bootstrap Hacks */
 #mycenter { position:absolute; }

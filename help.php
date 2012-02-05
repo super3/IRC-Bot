@@ -1,10 +1,10 @@
 <?php include_once('header.php'); ?>
-<div class="span4">
+<div class="span3">
     <?php $_GET['page'] = 'help'; include_once('sidebar.php'); ?>
 </div>
-<div class="well span8">
-    <h1>IRC-Bot</h1>    
-        <p>A basic IRC Bot built in PHP (using sockets) with wonderful OOP. 
+<div class="well span9">
+    <h1>Help</h1>    
+        <p>This is a basic IRC Bot built in PHP (using sockets) with wonderful OOP. 
         Designed to run off a local LAMP, WAMP, or MAMP stack.</p>
     <h2>Web</h2>
         <ul>

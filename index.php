@@ -1,8 +1,8 @@
 <?php include_once('header.php'); ?>
-<div class="span4">
+<div class="span3">
     <?php $_GET['page'] = 'index'; include_once('sidebar.php'); ?>
 </div>
-<div class="well span8">
+<div class="well span9">
     <h1>IRC-Bot</h1>    
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at vestibulum quam. Quisque fermentum nunc at 
            tortor porta at tincidunt nisl fringilla. Phasellus pulvinar tristique nibh nec viverra. Nulla quis augue lorem,

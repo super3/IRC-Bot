@@ -11,9 +11,10 @@
      * @license http://creativecommons.org/licenses/by/3.0/
      *
      * @package IRCBot
-     * @author Super3 <admin@wildphp.org>
+     * @author Super3 <admin@wildphp.org> 
      */
 
+    // Test
     // Configure PHP
     set_time_limit( 0 );
     ini_set( 'display_errors', 'on' );

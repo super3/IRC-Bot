@@ -41,30 +41,33 @@
             <div class="controls">
               <label class="checkbox">
                 <input type="checkbox" name="optionsCheckboxList1" value="option1">
-                Option one is this and that—be sure to include why it's great
+                !say - Says message in the specified IRC channel (<a href="#">?</a>)
               </label>
               <label class="checkbox">
                 <input type="checkbox" name="optionsCheckboxList2" value="option2">
-                Option two can also be checked and included in form results
+                !poke - Pokes the specified IRC user. (<a href="#">?</a>)
               </label>
               <label class="checkbox">
                 <input type="checkbox" name="optionsCheckboxList3" value="option3">
-                Option three can—yes, you guessed it—also be checked and included in form results
+                !join - Joins the specified channel. (<a href="#">?</a>)
               </label>
-              <p class="help-block"><strong>Note:</strong> Labels surround all the options for much larger click areas and a more usable form.</p>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Radio buttons</label>
-            <div class="controls">
-              <label class="radio">
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                Option one is this and that—be sure to include why it's great
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList3" value="option3">
+                !part - Parts the specified channel. (<a href="#">?</a>)
               </label>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                Option two can is something else and selecting it will deselect option one
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList3" value="option3">
+                !timeout - Bot leaves for the specified number of seconds. (<a href="#">?</a>)
               </label>
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList3" value="option3">
+                !restart - Quits and restarts the script. (<a href="#">?</a>)
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList3" value="option3">
+                !quit - Quits and stops the script. (<a href="#">?</a>)
+              </label>
+              <p class="help-block"><strong>Note:</strong> More commands can be added in the <a href="command.php">command manager</a>.</p>
             </div>
           </div>
           <div class="form-actions">

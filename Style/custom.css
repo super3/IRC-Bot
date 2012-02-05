@@ -15,7 +15,7 @@ body {
 /* Bootstrap Hacks */
 #mycenter { position:absolute; }
 #space td{ padding-top: 15px; }
-#space td div{ position: relative; top: -6px; }
+#space td .btn{ position: relative; top: -6px; }
 .right { float: right; }
 .left { float: left; }
 .text-right { text-align: right; }

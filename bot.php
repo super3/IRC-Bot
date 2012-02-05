@@ -30,8 +30,9 @@
           </tr>
         </tbody>
       </table>
-</div>
-<div class="well span9 text-right">
-   <a class="btn" href="editbot.php"><i class="icon-plus"></i> Add Bot</a>
+      <hr/>
+      <div class="text-right">
+         <a class="btn" href="editbot.php"><i class="icon-plus"></i> Add Bot</a>
+        </div>
 </div>
 <?php include_once('footer.php'); ?>

@@ -1,6 +1,6 @@
-<?php include_once('header.php'); ?>
+<?php include_once('view/template/header.php'); ?>
 <div class="span3">
-    <?php $_GET['page'] = 'index'; include_once('sidebar.php'); ?>
+    <?php $_GET['page'] = 'index'; include_once('view/template/sidebar.php'); ?>
 </div>
 <div class="well span9">
     <h1>IRC-Bot</h1>    
@@ -25,4 +25,4 @@
            pretium ligula et eros volutpat scelerisque eu sit amet orci. Nam ut magna sed mauris dictum malesuada. Donec 
            pulvinar feugiat risus id ultrices.</p>
 </div>
-<?php include_once('footer.php'); ?>
+<?php include_once('view/template/footer.php'); ?>

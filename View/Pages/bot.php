@@ -28,6 +28,6 @@
       </table>
       <hr/>
       <div class="text-right">
-         <a class="btn" href="page.php?page=editbot"><i class="icon-plus"></i> Add Bot</a>
+         <a class="btn" href="index.php?page=editbot"><i class="icon-plus"></i> Add Bot</a>
         </div>
 </div>

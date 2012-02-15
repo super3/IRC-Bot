@@ -1,7 +1,7 @@
 <div class="well span9"> 
     <form class="form-horizontal">
         <fieldset>
-          <legend>Add/Edit Bot</legend>
+          <legend>Bot Info</legend>
           <div class="control-group">
             <label class="control-label">Name</label>
             <div class="controls">
@@ -32,6 +32,7 @@
               
             </div>
           </div>
+          
           <div class="control-group">
             <label class="control-label" for="optionsCheckboxList">Commands</label>
             <div class="controls">

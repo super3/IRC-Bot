@@ -39,7 +39,7 @@ class Poke extends \Library\IRC\Command\Base {
     public function command() {
         $this->connection->sendData(
             'PRIVMSG ' . $this->arguments[0] .
-            ' :'. chr(1). 'ACTION pokes '. $this->arguments[1]. chr(1)
+            ' :'. chr(1). 'ACTION pokes '. trim()$this->arguments[1]). chr(1)
         );
     }
 }

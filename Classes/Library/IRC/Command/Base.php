@@ -48,6 +48,13 @@
         protected $arguments = array ( );
 
         /**
+         * Contains channel or user name
+         *
+         * @var string
+         */
+        protected $source = null;
+
+        /**
          * The number of arguments the command needs.
          *
          * You have to define this in the command.
@@ -73,19 +80,33 @@
          * @return type
          */
         public function executeCommand( array $arguments, $source ) {
+            // Set source
+            $this->source = $source;
+
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text.
             if ($this->numberOfArguments != -1 && count( $arguments ) != $this->numberOfArguments) {
                 // Show help text.
-                $this->connection->sendData( 'PRIVMSG '. $source. ' :Incorrect Arguments. Usage: ' .
-                $this->getHelp());
+                $this->say(' Incorrect Arguments. Usage: ' . $this->getHelp());
             }
             else {
                 // Set Arguments
                 $this->arguments = $arguments;
+
                 // Execute the command.
                 $this->command();
             }
+        }
+
+        /**
+         * Sends PRIVMSG to source with $msg
+         *
+         * @param string $msg
+         */
+       protected function say($msg) {
+            $this->connection->sendData(
+                    'PRIVMSG ' . $this->source . ' : ' . $msg
+            );
         }
 
         private function getHelp() {
@@ -118,5 +139,35 @@
             $this->bot = $ircBot;
         }
 
+        /**
+         * Fetches data from $uri
+         *
+         * @param string $uri
+         * @return string
+         */
+        protected function fetch($uri) {
+
+            $this->bot->log("Fetching from URI: " . $uri);
+
+            // create curl resource
+            $ch = curl_init();
+
+            // set url
+            curl_setopt($ch, CURLOPT_URL, $uri);
+
+            //return the transfer as a string
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+
+            // $output contains the output string
+            $output = curl_exec($ch);
+
+            // close curl resource to free up system resources
+            curl_close($ch);
+
+            $this->bot->log("Data fetched: " . $output);
+
+            return $output;
+        }
     }
 ?>

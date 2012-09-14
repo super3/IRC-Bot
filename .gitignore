@@ -1,2 +1,6 @@
 *.log
 Documentation/*
+.buildpath
+.project
+.settings/
+config.local.php

@@ -4,3 +4,5 @@ Documentation/*
 .project
 .settings/
 config.local.php
+
+.idea

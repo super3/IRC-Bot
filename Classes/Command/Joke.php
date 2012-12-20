@@ -42,9 +42,10 @@ class Joke extends \Library\IRC\Command\Base {
         if ($joke) {
             if (isset($joke->value->joke)) {
                 $this->say(html_entity_decode($joke->value->joke));
+                return;
             }
-        } else {
-            $this->say("I don't feel like laughing today. :(");
         }
+
+        $this->say("I don't feel like laughing today. :(");
     }
 }

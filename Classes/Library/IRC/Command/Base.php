@@ -165,6 +165,9 @@
             // close curl resource to free up system resources
             curl_close($ch);
 
+            // ICNDB has escaped slashes in JSON response.
+            $output = stripslashes($output);
+
             $this->bot->log("Data fetched: " . $output);
 
             return $output;

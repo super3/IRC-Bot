@@ -260,7 +260,7 @@
                             continue;
                         }
 
-                        $this->executeCommand( $source, $command, $arguments );
+                        $this->executeCommand( $source, $command, $arguments, $data );
                     }
                 }
             } while (true);
@@ -280,11 +280,11 @@
             $this->log( 'The following Command was added to the Bot: "' . $commandName . '".', 'INFO' );
         }
 
-        protected function executeCommand( $source, $commandName, array $arguments ) {
+        protected function executeCommand( $source, $commandName, array $arguments, $data ) {
             // Execute command:
             $command = $this->commands[$commandName];
-            /* @var $command IRCCommand */
-            $command->executeCommand( $arguments, $source );
+            /** @var $command IRCCommand */
+            $command->executeCommand( $arguments, $source, $data );
         }
 
         public function addListener( \Library\IRC\Listener\Base $listener) {

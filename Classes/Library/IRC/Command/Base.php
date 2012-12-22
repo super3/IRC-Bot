@@ -55,6 +55,13 @@
         protected $source = null;
 
         /**
+         * Original request from server
+         *
+         * @var string
+         */
+        private $data;
+
+        /**
          * The number of arguments the command needs.
          *
          * You have to define this in the command.
@@ -75,13 +82,16 @@
         /**
          * Executes the command.
          *
-         * @param \Library\IRCBot $IRCBot    The IRC-Bot, that will execute the command.
          * @param array           $arguments The assigned arguments.
-         * @return type
+         * @param string          $source    Originating request
+         * @param string          $data      Original data from server
          */
-        public function executeCommand( array $arguments, $source ) {
+        public function executeCommand( array $arguments, $source, $data ) {
             // Set source
             $this->source = $source;
+
+            // Set data
+            $this->data = $data;
 
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text.
@@ -137,6 +147,20 @@
          */
         public function setIRCBot( \Library\IRC\Bot $ircBot ) {
             $this->bot = $ircBot;
+        }
+
+        /**
+         * Returns requesting user IP
+         *
+         * @return string
+         */
+        protected function getUserIp() {
+            $this->say($this->data);
+            if (preg_match( '/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $this->data, $match ) === 1) {
+                return $match[1];
+            }
+
+            return null;
         }
 
         /**

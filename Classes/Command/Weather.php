@@ -41,6 +41,13 @@ class Weather extends \Library\IRC\Command\Base {
     private $weatherUri = "http://query.yahooapis.com/v1/public/yql?q=%s&format=json";
 
     /**
+     * API for getting location from IP
+     *
+     * @var string
+     */
+    private $ipUri = "http://ip-api.com/json/%s";
+
+    /**
      * The number of arguments the command needs.
      *
      * @var integer
@@ -70,6 +77,11 @@ class Weather extends \Library\IRC\Command\Base {
         $location = trim($location);
         $location = urlencode($location);
 
+        if (strlen($location) == 0) {
+            $this->say(sprintf("Enter location. (Usage: !weather location)"));
+            return;
+        }
+
         $this->bot->log("Looking for Woeid for location $location.");
 
         $locationObject = $this->getLocation($location);
@@ -86,7 +98,7 @@ class Weather extends \Library\IRC\Command\Base {
             }
 
         } else {
-            $this->say(sprintf("Location %s not found.", $location));
+            $this->say(sprintf("Location '%s' not found.", $location));
         }
     }
 
@@ -127,7 +139,7 @@ class Weather extends \Library\IRC\Command\Base {
         $jsonResponse = json_decode($response);
 
         if ($jsonResponse) {
-            if (isset($jsonResponse->places) && is_array($jsonResponse->places->place)) {
+            if (isset($jsonResponse->places) && isset($jsonResponse->places->place) && is_array($jsonResponse->places->place)) {
                 return array_shift($jsonResponse->places->place);
             }
         }

@@ -37,6 +37,9 @@ class Joke extends \Library\IRC\Command\Base {
 
         $data = $this->fetch("http://api.icndb.com/jokes/random");
 
+        // ICNDB has escaped slashes in JSON response.
+        $data = stripslashes($data);
+
         $joke = json_decode($data);
 
         if ($joke) {

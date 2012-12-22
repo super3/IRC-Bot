@@ -38,7 +38,7 @@ class Weather extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    private $weatherUri = "http://weather.yahooapis.com/forecastjson?w=%s&u=c";
+    private $weatherUri = "http://query.yahooapis.com/v1/public/yql?q=%s&format=json";
 
     /**
      * The number of arguments the command needs.
@@ -91,22 +91,26 @@ class Weather extends \Library\IRC\Command\Base {
     }
 
     protected function getWeather($woeid) {
-        $response = $this->fetch(sprintf($this->weatherUri, $woeid));
+        $yql = sprintf('select * from weather.forecast where woeid=%d and u="c"', $woeid);
+
+        $response = $this->fetch(sprintf($this->weatherUri, urlencode($yql)));
         $jsonResponse = json_decode($response);
 
         if (!$jsonResponse) {
             return false;
         }
 
-        if (!isset($jsonResponse->units) || !isset($jsonResponse->condition)) {
+        if (!isset($jsonResponse->query->results)) {
             return false;
         }
 
-        $unitTemp = $jsonResponse->units->temperature;
+        $results = $jsonResponse->query->results;
 
-        $condition = $jsonResponse->condition;
+        $unitTemp = $results->channel->units->temperature;
 
-        return $condition->text . ", " . $condition->temperature . " " . $unitTemp;
+        $condition = $results->channel->item->condition;
+
+        return $condition->text . ", " . $condition->temp . " " . $unitTemp;
     }
 
     /**

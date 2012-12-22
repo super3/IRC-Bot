@@ -77,9 +77,20 @@ class Weather extends \Library\IRC\Command\Base {
         $location = trim($location);
         $location = urlencode($location);
 
-        if (strlen($location) == 0) {
-            $this->say(sprintf("Enter location. (Usage: !weather location)"));
-            return;
+        if (!strlen($location)) {
+            $ip = $this->getUserIp();
+
+            if (!$ip) {
+                $this->say(sprintf("Enter location. (Usage: !weather location)"));
+                return;
+            }
+
+            $location = $this->getLocationNameFromIp($ip);
+
+            if (!strlen($location)) {
+                $this->say(sprintf("Enter location. (Usage: !weather location)"));
+                return;
+            }
         }
 
         $this->bot->log("Looking for Woeid for location $location.");
@@ -141,6 +152,29 @@ class Weather extends \Library\IRC\Command\Base {
         if ($jsonResponse) {
             if (isset($jsonResponse->places) && isset($jsonResponse->places->place) && is_array($jsonResponse->places->place)) {
                 return array_shift($jsonResponse->places->place);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns location name of $ip.
+     *
+     * @param $ip
+     *
+     * @return string
+     */
+    protected function getLocationNameFromIp($ip) {
+        $uri = sprintf($this->ipUri, $ip);
+
+        $response = $this->fetch($uri);
+
+        $jsonResponse = json_decode($response);
+
+        if ($jsonResponse) {
+            if (isset($jsonResponse->city)) {
+                return $jsonResponse->city;
             }
         }
 

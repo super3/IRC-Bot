@@ -143,6 +143,7 @@
 
         /**
          * Set's the IRC Bot, so we can use it to send data to the server.
+         *
          * @param \Library\IRCBot $ircBot
          */
         public function setIRCBot( \Library\IRC\Bot $ircBot ) {
@@ -155,7 +156,6 @@
          * @return string
          */
         protected function getUserIp() {
-            $this->say($this->data);
             if (preg_match( '/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $this->data, $match ) === 1) {
                 return $match[1];
             }

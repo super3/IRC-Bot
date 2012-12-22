@@ -15,6 +15,7 @@ return array(
             'yahooKey' => 'a',
         ),
         'Command\Joke'    => array(),
+        'Command\Ip'      => array(),
         'Command\Poke'    => array(),
         'Command\Join'    => array(),
         'Command\Part'    => array(),

@@ -15,16 +15,18 @@
      * @author Matej Velikonja <matej@velikonja.si>
      */
 
+    define('ROOT_DIR', __DIR__);
+
     // Configure PHP
     //ini_set( 'display_errors', 'on' );
 
     // Make autoload working
     require 'Classes/Autoloader.php';
 
-    if (file_exists('config.local.php')) {
-        $config = include_once('config.local.php');
+    if (file_exists(ROOT_DIR . '/config.local.php')) {
+        $config = include_once(ROOT_DIR . '/config.local.php');
     } else {
-        $config = include_once('config.php');
+        $config = include_once(ROOT_DIR . '/config.php');
     }
 
     spl_autoload_register( 'Autoloader::load' );
@@ -57,6 +59,8 @@
 
         $bot->addListener($listener);
     }
+
+
 
     // Connect to the server.
     $bot->connectToServer();

@@ -156,8 +156,16 @@
          * @return string
          */
         protected function getUserIp() {
-            if (preg_match( '/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $this->data, $match ) === 1) {
-                return $match[1];
+            // :matejv!~matej@tm.78.153.58.66.dc.CAble.static.telemach.net PRIVMSG #phpbot404 :!ip
+            // catches from @ to first space
+            if (preg_match('/@([a-z0-9.]*) /i', $this->data, $match) === 1) {
+                $hostname = $match[1];
+
+                $ip = gethostbyname($hostname);
+
+                if ($ip !== $hostname) {
+                    return $ip;
+                }
             }
 
             return null;

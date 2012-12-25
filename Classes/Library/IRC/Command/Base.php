@@ -115,7 +115,7 @@
          */
        protected function say($msg) {
             $this->connection->sendData(
-                    'PRIVMSG ' . $this->source . ' : ' . $msg
+                    'PRIVMSG ' . $this->source . ' :' . $msg
             );
         }
 
@@ -156,7 +156,6 @@
          * @return string
          */
         protected function getUserIp() {
-            // :matejv!~matej@tm.78.153.58.66.dc.CAble.static.telemach.net PRIVMSG #phpbot404 :!ip
             // catches from @ to first space
             if (preg_match('/@([a-z0-9.]*) /i', $this->data, $match) === 1) {
                 $hostname = $match[1];

@@ -31,6 +31,12 @@ Implements listener, that listen to changes in channels.
 
 ## Install
 
+### Dependecy
+
+proctitle (optional) - Changes the process title when running as service.
+
+    pecl install proctitle-alpha
+
 ### Config
 
 Copy configuration file and customize its content.

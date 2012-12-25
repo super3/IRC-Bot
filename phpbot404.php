@@ -61,6 +61,11 @@
     }
 
 
+    if (function_exists('setproctitle')) {
+        $title = basename(__FILE__, '.php') . ' - ' . $config['nick'];
+        setproctitle($title);
+    }
+
 
     // Connect to the server.
     $bot->connectToServer();

@@ -162,7 +162,8 @@
 
                 $ip = gethostbyname($hostname);
 
-                if ($ip !== $hostname) {
+                // did we really get an IP
+                if (preg_match( '/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $ip ) === 1) {
                     return $ip;
                 }
             }

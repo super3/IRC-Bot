@@ -157,7 +157,7 @@
          */
         protected function getUserIp() {
             // catches from @ to first space
-            if (preg_match('/@([a-z0-9.]*) /i', $this->data, $match) === 1) {
+            if (preg_match('/@([a-z0-9.-]*) /i', $this->data, $match) === 1) {
                 $hostname = $match[1];
 
                 $ip = gethostbyname($hostname);

@@ -48,6 +48,20 @@
         protected $arguments = array ( );
 
         /**
+         * Contains channel or user name
+         *
+         * @var string
+         */
+        protected $source = null;
+
+        /**
+         * Original request from server
+         *
+         * @var string
+         */
+        private $data;
+
+        /**
          * The number of arguments the command needs.
          *
          * You have to define this in the command.
@@ -68,24 +82,41 @@
         /**
          * Executes the command.
          *
-         * @param \Library\IRCBot $IRCBot    The IRC-Bot, that will execute the command.
          * @param array           $arguments The assigned arguments.
-         * @return type
+         * @param string          $source    Originating request
+         * @param string          $data      Original data from server
          */
-        public function executeCommand( array $arguments, $source ) {
+        public function executeCommand( array $arguments, $source, $data ) {
+            // Set source
+            $this->source = $source;
+
+            // Set data
+            $this->data = $data;
+
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text.
             if ($this->numberOfArguments != -1 && count( $arguments ) != $this->numberOfArguments) {
                 // Show help text.
-                $this->connection->sendData( 'PRIVMSG '. $source. ' :Incorrect Arguments. Usage: ' .
-                $this->getHelp());
+                $this->say(' Incorrect Arguments. Usage: ' . $this->getHelp());
             }
             else {
                 // Set Arguments
                 $this->arguments = $arguments;
+
                 // Execute the command.
                 $this->command();
             }
+        }
+
+        /**
+         * Sends PRIVMSG to source with $msg
+         *
+         * @param string $msg
+         */
+       protected function say($msg) {
+            $this->connection->sendData(
+                    'PRIVMSG ' . $this->source . ' :' . $msg
+            );
         }
 
         private function getHelp() {
@@ -112,11 +143,63 @@
 
         /**
          * Set's the IRC Bot, so we can use it to send data to the server.
+         *
          * @param \Library\IRCBot $ircBot
          */
         public function setIRCBot( \Library\IRC\Bot $ircBot ) {
             $this->bot = $ircBot;
         }
 
+        /**
+         * Returns requesting user IP
+         *
+         * @return string
+         */
+        protected function getUserIp() {
+            // catches from @ to first space
+            if (preg_match('/@([a-z0-9.-]*) /i', $this->data, $match) === 1) {
+                $hostname = $match[1];
+
+                $ip = gethostbyname($hostname);
+
+                // did we really get an IP
+                if (preg_match( '/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/', $ip ) === 1) {
+                    return $ip;
+                }
+            }
+
+            return null;
+        }
+
+        /**
+         * Fetches data from $uri
+         *
+         * @param string $uri
+         * @return string
+         */
+        protected function fetch($uri) {
+
+            $this->bot->log("Fetching from URI: " . $uri);
+
+            // create curl resource
+            $ch = curl_init();
+
+            // set url
+            curl_setopt($ch, CURLOPT_URL, $uri);
+
+            //return the transfer as a string
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+
+            // $output contains the output string
+            $output = curl_exec($ch);
+
+            // close curl resource to free up system resources
+            curl_close($ch);
+
+            $this->bot->log("Data fetched: " . $output);
+
+            return $output;
+        }
     }
 ?>

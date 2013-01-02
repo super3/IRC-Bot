@@ -33,7 +33,7 @@
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         public static function load( $class ) {
-            $filename = 'Classes/' . str_replace( '\\', '/', $class ) . '.php';
+            $filename = __DIR__ . '/' . str_replace( '\\', '/', $class ) . '.php';
             if (file_exists($filename)) {
                 return require $filename;
             }

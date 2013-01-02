@@ -21,7 +21,7 @@
 
     namespace Library\IRC;
 
-    /**
+	/**
      * A simple IRC Bot with basic features.
      *
      * @package IRCBot
@@ -107,6 +107,13 @@
         private $commands = array ( );
 
         /**
+         * All available listeners.
+         * Listeners are type of IRCListener
+         * @var array
+         */
+        private $listeners = array ( );
+
+        /**
          * Holds the reference to the file.
          * @var type
          */
@@ -134,7 +141,9 @@
          * Cleanup handlers.
          */
         public function __destruct() {
-            fclose( $this->logFileHandler );
+            if ($this->logFileHandler) {
+                fclose( $this->logFileHandler );
+            }
         }
 
         /**
@@ -153,6 +162,7 @@
             }
 
             $this->log( 'The following commands are known by the bot: "' . implode( ',', array_keys( $this->commands ) ) . '".', 'INFO' );
+            $this->log( 'The following listeners are known by the bot: "' . implode( ',', array_keys( $this->listeners ) ) . '".', 'INFO' );
 
             $this->connection->connect();
             $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
@@ -216,29 +226,42 @@
                 }
 
                 // Nothing new from the server, step over.
-                if ($args[0] == 'PING' || !isset( $args[3] )) {
+                if ($args[0] == 'PING' || !isset($args[1])) {
                     continue;
                 }
 
-                // Explode the server response and get the command.
-                // $source finds the channel or user that the command originated.
-                $source = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
-                $command = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
-                $arguments = array_slice( $args, 4 );
-                unset( $args );
-
-                // Check if the response was a command.
-                if (stripos( $command, $this->commandPrefix ) === 0) {
-                    $command = ucfirst( substr( $command, 1 ) );
-
-                    // Command does not exist:
-                    if (!array_key_exists( $command, $this->commands )) {
-                        $this->log( 'The following, not existing, command was called: "' . $command . '".', 'MISSING' );
-                        $this->log( 'The following commands are known by the bot: "' . implode( ',', array_keys( $this->commands ) ) . '".', 'MISSING' );
-                        continue;
+                /* @var $listener \Library\IRC\Listener\Base */
+                foreach ($this->listeners as $listener) {
+                    if (is_array($listener->getKeywors())) {
+                        foreach ($listener->getKeywors() as $keyword) {
+                            //compare listeners keyword and 1st arguments of server response
+                            if ($keyword === $args[1]) {
+                                $listener->execute( $data );
+                            }
+                        }
                     }
+                }
 
-                    $this->executeCommand( $source, $command, $arguments );
+                if (isset($args[3])) {
+                    // Explode the server response and get the command.
+                    // $source finds the channel or user that the command originated.
+                    $source = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
+                    $command = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
+                    $arguments = array_slice( $args, 4 );
+                    unset( $args );
+
+                    // Check if the response was a command.
+                    if (stripos( $command, $this->commandPrefix ) === 0) {
+                        $command = ucfirst( substr( $command, 1 ) );
+                        // Command does not exist:
+                        if (!array_key_exists( $command, $this->commands )) {
+                            $this->log( 'The following, not existing, command was called: "' . $command . '".', 'MISSING' );
+                            $this->log( 'The following commands are known by the bot: "' . implode( ',', array_keys( $this->commands ) ) . '".', 'MISSING' );
+                            continue;
+                        }
+
+                        $this->executeCommand( $source, $command, $arguments, $data );
+                    }
                 }
             } while (true);
         }
@@ -250,19 +273,40 @@
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         public function addCommand( \Library\IRC\Command\Base $command ) {
-            $commandName = explode( '\\', get_class( $command ) );
-            $commandName = $commandName[count( $commandName ) - 1];
+            $commandName = $this->getClassName($command);
             $command->setIRCConnection( $this->connection );
             $command->setIRCBot( $this );
             $this->commands[$commandName] = $command;
             $this->log( 'The following Command was added to the Bot: "' . $commandName . '".', 'INFO' );
         }
 
-        protected function executeCommand( $source, $commandName, array $arguments ) {
+        protected function executeCommand( $source, $commandName, array $arguments, $data ) {
             // Execute command:
             $command = $this->commands[$commandName];
-            /* @var $command IRCCommand */
-            $command->executeCommand( $arguments, $source );
+            /** @var $command IRCCommand */
+            $command->executeCommand( $arguments, $source, $data );
+        }
+
+        public function addListener( \Library\IRC\Listener\Base $listener) {
+            $listenerName = $this->getClassName($listener);
+            $listener->setIRCConnection( $this->connection );
+            $listener->setIRCBot( $this );
+            $this->listeners[$listenerName] = $listener;
+            $this->log( 'The following Listener was added to the Bot: "' . $listenerName . '".', 'INFO' );
+        }
+
+        /**
+         * Returns class name of $object without namespace
+         *
+         * @param mixed $object
+         * @author Matej Velikonja <matej@velikonja.si>
+         * @return string
+         */
+        private function getClassName( $object) {
+            $objectName = explode( '\\', get_class( $object ) );
+            $objectName = $objectName[count( $objectName ) - 1];
+
+            return $objectName;
         }
 
         /**
@@ -301,14 +345,18 @@
          *
          * @author Daniel Siepmann <coding.layne@me.com>
          */
-        private function log( $log, $status = '' ) {
-            if (is_null( $this->logFileHandler )) {
-                return false;
-            }
+        public function log( $log, $status = '' ) {
             if (empty( $status )) {
                 $status = 'LOG';
             }
-            fwrite( $this->logFileHandler, date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . \Library\FunctionCollection::removeLineBreaks( $log ) . "\r\n" );
+
+            $msg = date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . \Library\FunctionCollection::removeLineBreaks( $log ) . "\r\n" ;
+
+            echo $msg;
+
+            if (!is_null( $this->logFileHandler )) {
+                fwrite( $this->logFileHandler, $msg);
+            }
         }
 
         // Setters
@@ -402,5 +450,12 @@
             }
         }
 
+        public function getCommands() {
+            return $this->commands;
+        }
+
+        public function getCommandPrefix() {
+            return $this->commandPrefix;
+        }
     }
 ?>

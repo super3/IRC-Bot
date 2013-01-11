@@ -71,7 +71,10 @@
          * @return boolean True if the connection was closed. False otherwise.
          */
         public function disconnect() {
-            return fclose( $this->socket );
+            if ($this->socket) {
+                return fclose( $this->socket );
+            }
+            return false;
         }
 
         /**

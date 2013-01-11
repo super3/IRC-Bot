@@ -1,35 +1,38 @@
-# PHP BOT 404
-A IRC Bot built in PHP (using sockets) with OOP.
-Designed to run off a local LAMP, WAMP, or MAMP stack.
-With a custom [Upstart](http://upstart.ubuntu.com/) script to run as Linux daemon.
+# PHP IRC-BOT (WildPHP)
+A IRC Bot built in PHP (using sockets) with OOP. Designed to run off a local LAMP, WAMP, or MAMP stack.
+Includes a custom [Upstart](http://upstart.ubuntu.com/) script to run as Linux daemon.
 
-## Web
-* [Source] (https://github.com/matejvelikonja/IRC-Bot-404)
+Web
+-------
+* Official Website: [http://wildphp.com](http://wildphp.com), Source Code: [Github](https://github.com/pogosheep/IRC-Bot)
+* Major Contributors: [Super3](http://super3.org), [Pogosheep](http://layne-obserdia.de), [Matejvelikonja](http://velikonja.si)
 
 ## Features and Functions
 
-### Commands
-
-* !weather [location] - Returns weather data for location
-* !joke - Returns random joke. Fetched from [ICNDb.com](http://www.icndb.com/).
-* !ip - Returns IP of a user.
+### Standard Commands
 
 * !say [#channel] [message] - Says message in the specified IRC channel.
 * !say [username] [message] - Says message in the specified IRC user.
-* !poke [#channel] [username] - Pokes the specified IRC user.
 * !join [#channel] - Joins the specified channel.
 * !part [#channel] - Parts the specified channel.
 * !timeout [seconds] - Bot leaves for the specified number of seconds.
 * !restart - Quits and restarts the script.
 * !quit - Quits and stops the script.
 
+### Entended Commands
+
+* !ip - Returns IP of a user.
+* !weather [location] - Returns weather data for location.
+* !poke [#channel] [username] - Pokes the specified IRC user.
+* !joke - Returns random joke. Fetched from [ICNDb.com](http://www.icndb.com/).
+
+
 ### Listeners
 
-Implements listener, that listen to changes in channels.
 
-* Joins - greets users when they join the channel.
+* Joins - Greets users when they join the channel.
 
-## Install
+## Install & Run
 
 ### Dependecy
 
@@ -65,5 +68,9 @@ Stop
 
     stop phpbot404
 
-## Forked from
-    [Pogosheep/IRC-BOT](https://github.com/pogosheep/IRC-Bot)
+Sample Usage and Output
+-------
+    <random-user> !say #wildphp hello there
+    <wildphp-bot> hello there
+    <random-user> !poke #wildphp random-user
+    * wildphp-bot pokes random-user

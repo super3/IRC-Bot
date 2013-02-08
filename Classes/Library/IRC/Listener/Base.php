@@ -22,7 +22,7 @@ abstract class Base
      *
      * @return array
      */
-    abstract function getKeywors();
+    abstract function getKeywords();
 
     /**
      * Sends PRIVMSG to source with $msg

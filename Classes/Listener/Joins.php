@@ -46,7 +46,7 @@ class Joins extends \Library\IRC\Listener\Base {
      *
      * @return array
      */
-    public function getKeywors() {
+    public function getKeywords() {
         return array("JOIN");
     }
 }

@@ -46,18 +46,28 @@
     // Add commands to the bot.
     foreach ($config['commands'] as $commandName => $args) {
         $reflector = new ReflectionClass($commandName);
-
-        if(empty($args)) $command = $reflector->newInstanceArgs();
-        else $command = $reflector->newInstanceArgs($args);
+        
+        try {
+            $command = $reflector->newInstanceArgs($args); // Try to instantiate a new command with the arguments.
+        }
+        catch (Exception $e) {
+            $command = $reflector->newInstanceArgs(); // Try to instantiate a new command with no arguments if it fails to work before.
+            if (!empty($args)) $bot->log( 'The command "' . $commandName . '" has arguments in the config but doesn\'t accept any!', 'WARNING' );
+        }
 
         $bot->addCommand($command);
     }
 
     foreach ($config['listeners'] as $listenerName => $args) {
         $reflector = new ReflectionClass($listenerName);
-
-        if(empty($args)) $listener = $reflector->newInstanceArgs();
-        else $listener = $reflector->newInstanceArgs($args);
+        
+        try {
+            $listener = $reflector->newInstanceArgs($args); // Try to instantiate a new listener with the arguments.
+        }
+        catch (Exception $e) {
+            $listener = $reflector->newInstanceArgs(); // Try to instantiate a new listener with no arguments if it fails to work before.
+            if (!empty($args)) $bot->log( 'The listener "' . $listenerName . '" has arguments in the config but doesn\'t accept any!', 'WARNING' );
+        }
 
         $bot->addListener($listener);
     }

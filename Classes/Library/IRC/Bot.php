@@ -232,8 +232,8 @@
 
                 /* @var $listener \Library\IRC\Listener\Base */
                 foreach ($this->listeners as $listener) {
-                    if (is_array($listener->getKeywors())) {
-                        foreach ($listener->getKeywors() as $keyword) {
+                    if (is_array($listener->getKeywords())) {
+                        foreach ($listener->getKeywords() as $keyword) {
                             //compare listeners keyword and 1st arguments of server response
                             if ($keyword === $args[1]) {
                                 $listener->execute( $data );

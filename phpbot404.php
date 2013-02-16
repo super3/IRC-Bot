@@ -47,7 +47,8 @@
     foreach ($config['commands'] as $commandName => $args) {
         $reflector = new ReflectionClass($commandName);
 
-        $command = $reflector->newInstanceArgs($args);
+        if(empty($args)) $command = $reflector->newInstanceArgs();
+        else $command = $reflector->newInstanceArgs($args);
 
         $bot->addCommand($command);
     }
@@ -55,7 +56,8 @@
     foreach ($config['listeners'] as $listenerName => $args) {
         $reflector = new ReflectionClass($listenerName);
 
-        $listener = $reflector->newInstanceArgs($args);
+        if(empty($args)) $listener = $reflector->newInstanceArgs();
+        else $listener = $reflector->newInstanceArgs($args);
 
         $bot->addListener($listener);
     }

@@ -32,7 +32,7 @@ class Joins extends \Library\IRC\Listener\Base {
     }
 
     private function getUserNickName($data) {
-        $result = preg_match('/:([a-zA-Z0-9_]+)!/', $data, $matches);
+        $result = preg_match('/([a-zA-Z0-9_]+)!/', $data, $matches);
 
         if ($result !== false) {
             return $matches[1];

@@ -118,6 +118,17 @@
          * @var type
          */
         private $logFileHandler = null;
+		
+		private static $commandString = "Command";
+		private static $listenerString = "Listener";
+		
+		private static $serialiseStrings = array(
+		"Serialise End" => "successfully serialised!",
+		"Serialise End Fail" => "didn't serialise!",
+		"Remember End" => "successfully remebered all it can!",
+		"Remember End Fail" => "could not remember anything!",
+		);
+
 
         /**
          * Creates a new IRCBot.
@@ -183,52 +194,56 @@
                 $arguments = array ( );
                 $data = $this->connection->getData();
 
-                // Check for some special situations and react:
-                // The nickname is in use, create a now one using a counter and try again.
-                if (stripos( $data, 'Nickname is already in use.' ) !== false) {
-                    $this->nickToUse = $this->nick . (++$this->nickCounter);
-                    $this->sendDataToServer( 'NICK ' . $this->nickToUse );
-                }
+				if(stripos( $data, 'PRIVMSG' ) === false)
+				{
+					// Check for some special situations and react:
+					if (stripos( $data, 'Nickname is already in use.' ) !== false) {
+					// The nickname is in use, create a now one using a counter and try again.
+						$this->nickToUse = $this->nick . (++$this->nickCounter);
+						$this->nick = $this->nickToUse;
+						$this->sendDataToServer( 'NICK ' . $this->nickToUse );
+					}
 
-                // We're welcome. Let's join the configured channel/-s.
-                if (stripos( $data, 'Welcome' ) !== false) {
-                    $this->join_channel( $this->channel );
-                }
+					// We're welcome. Let's join the configured channel/-s.
+					if (stripos( $data, 'Welcome' ) !== false) {
+						$this->join_channel( $this->channel );
+					}
 
-                // Something realy went wrong.
-                if (stripos( $data, 'Registration Timeout' ) !== false ||
-                    stripos( $data, 'Erroneous Nickname' ) !== false ||
-                    stripos( $data, 'Closing Link' ) !== false) {
-                    // If the error occurs to often, create a log entry and exit.
-                    if ($this->numberOfReconnects >= (int) $this->maxReconnects) {
-                        $this->log( 'Closing Link after "' . $this->numberOfReconnects . '" reconnects.', 'EXIT' );
-                        exit;
-                    }
+					// Something realy went wrong.
+					if (stripos( $data, 'Registration Timeout' ) !== false ||
+						stripos( $data, 'Erroneous Nickname' ) !== false ||
+						stripos( $data, 'Closing Link' ) !== false) {
+						// If the error occurs to often, create a log entry and exit.
+						if ($this->numberOfReconnects >= (int) $this->maxReconnects) {
+							$this->log( 'Closing Link after "' . $this->numberOfReconnects . '" reconnects.', 'EXIT' );
+							exit;
+						}
 
-                    // Notice the error.
-                    $this->log( $data, 'CONNECTION LOST' );
-                    // Wait before reconnect ...
-                    sleep( 60 * 1 );
-                    ++$this->numberOfReconnects;
-                    // ... and reconnect.
-                    $this->connection->connect();
-                    return;
-                }
+						// Notice the error.
+						$this->log( $data, 'CONNECTION LOST' );
+						// Wait before reconnect ...
+						sleep( 60 * 1 );
+						++$this->numberOfReconnects;
+						// ... and reconnect.
+						$this->connection->connect();
+						return;
+					}
+				}
 
-                // Get the response from irc:
-                $args = explode( ' ', $data );
-                $this->log( $data );
+				// Get the response from irc:
+				$args = explode( ' ', $data );
+				$this->log( $data );
 
 
-                // Play ping pong with server, to stay connected:
-                if ($args[0] == 'PING') {
-                    $this->sendDataToServer( 'PONG ' . $args[1] );
-                }
+				// Play ping pong with server, to stay connected:
+				if ($args[0] == 'PING') {
+					$this->sendDataToServer( 'PONG ' . $args[1] );
+				}
 
-                // Nothing new from the server, step over.
-                if ($args[0] == 'PING' || !isset($args[1])) {
-                    continue;
-                }
+				// Nothing new from the server, step over.
+				if ($args[0] == 'PING' || !isset($args[1])) {
+					continue;
+				}
 
                 /* @var $listener \Library\IRC\Listener\Base */
                 foreach ($this->listeners as $listener) {
@@ -245,6 +260,7 @@
                 if (isset($args[3])) {
                     // Explode the server response and get the command.
                     // $source finds the channel or user that the command originated.
+					$privSource = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[0] ) ), 1 );
                     $source = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
                     $command = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
                     $arguments = array_slice( $args, 4 );
@@ -252,7 +268,7 @@
 
                     // Check if the response was a command.
                     if (stripos( $command, $this->commandPrefix ) === 0) {
-                        $command = ucfirst( substr( $command, 1 ) );
+                        $command = strtolower(substr( $command, 1 ));
                         // Command does not exist:
                         if (!array_key_exists( $command, $this->commands )) {
                             $this->log( 'The following, not existing, command was called: "' . $command . '".', 'MISSING' );
@@ -260,7 +276,7 @@
                             continue;
                         }
 
-                        $this->executeCommand( $source, $command, $arguments, $data );
+                        $this->executeCommand( $privSource, $source, $command, $arguments, $data );
                     }
                 }
             } while (true);
@@ -273,18 +289,18 @@
          * @author Daniel Siepmann <coding.layne@me.com>
          */
         public function addCommand( \Library\IRC\Command\Base $command ) {
-            $commandName = $this->getClassName($command);
+            $commandName = strtolower($this->getClassName($command));
             $command->setIRCConnection( $this->connection );
             $command->setIRCBot( $this );
             $this->commands[$commandName] = $command;
             $this->log( 'The following Command was added to the Bot: "' . $commandName . '".', 'INFO' );
         }
 
-        protected function executeCommand( $source, $commandName, array $arguments, $data ) {
+        protected function executeCommand( $privSource, $source, $commandName, array $arguments, $data ) {
             // Execute command:
             $command = $this->commands[$commandName];
             /** @var $command IRCCommand */
-            $command->executeCommand( $arguments, $source, $data );
+            $command->executeCommand( $arguments, $privSource, $source, $data );
         }
 
         public function addListener( \Library\IRC\Listener\Base $listener) {
@@ -449,6 +465,57 @@
                 $this->logFileHandler = fopen( $this->logFile, 'w+' );
             }
         }
+		
+		/**
+		 * Allows plug-ins to serliase to files, if they don't have a serialise method then they won't serialise.
+		 *
+		 * @author Jack Blower <Jack@elvenspellmaker.co.uk>
+		 */
+		public function serialise() { $this->serialRemMain("serialise"); }
+		
+		/**
+		 * Allows plug-ins to remember data, if they don't have a remember method then they won't try to load anything.
+		 *
+		 * @author Jack Blower <Jack@elvenspellmaker.co.uk>
+		 */
+		public function remember() { $this->serialRemMain("remember"); }
+		
+		/**
+		 * Performs serialisation or remembering across all listeners and commands if they have implemented this.
+		 *
+		 * @param string $serialOrRem serialise or remember.
+		 * @author Jack Blower <Jack@elvenspellmaker.co.uk>
+		 */		
+		private function serialRemMain($serialOrRem) {
+			foreach ($this->listeners as $listener)
+				$this->serialRemLoop($serialOrRem, self::$listenerString, $listener);
+					
+			foreach ($this->commands as $command)
+				$this->serialRemLoop($serialOrRem, self::$commandString, $command);
+		}
+		
+		/**
+		 * Helper function for serialise/remember to actually perform the serialisation or remembering.
+		 * Logs whether the command was successful or not.
+		 *
+		 * @author Jack Blower <Jack@elvenspellmaker.co.uk>
+		 */
+		private function serialRemLoop($methodName, $beginningString, $object) {
+			if(method_exists($object, $methodName))
+				if($object->{$methodName}() !== FALSE) $this->serialRemLog($beginningString, $object, $methodName, "INFO");
+				else 								   $this->serialRemLog($beginningString, $object, $methodName, "WARNING");
+		}
+		
+		/**
+		 * The log cop
+		 *
+		 * @author Jack Blower <Jack@elvenspellmaker.co.uk>
+		 */		
+		private function serialRemLog($beginningString, $object, $methodName, $logType)
+		{
+			$fail = ($logType == "WARNING") ? " Fail" : "";
+			$this->log($beginningString ." '". $this->getClassName($object) ."' ". self::$serialiseStrings[ucfirst($methodName) ." End". $fail], $logType);
+		}
 
         public function getCommands() {
             return $this->commands;
@@ -457,5 +524,7 @@
         public function getCommandPrefix() {
             return $this->commandPrefix;
         }
+		
+		public function getNick() { return $this->nick; }
     }
 ?>

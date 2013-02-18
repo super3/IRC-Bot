@@ -46,6 +46,12 @@
          * @var array
          */
         protected $arguments = array ( );
+		
+		/**
+         * Contains the nick/host/username of the user who issued the command.
+         * @var string
+         */
+		protected $privSource = null;
 
         /**
          * Contains channel or user name
@@ -86,8 +92,11 @@
          * @param string          $source    Originating request
          * @param string          $data      Original data from server
          */
-        public function executeCommand( array $arguments, $source, $data ) {
-            // Set source
+        public function executeCommand( array $arguments, $privSource, $source, $data ) {
+            // Set priv source
+			$this->privSource = $privSource;
+			
+			// Set source
             $this->source = $source;
 
             // Set data

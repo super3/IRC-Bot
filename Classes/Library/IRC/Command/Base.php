@@ -123,8 +123,14 @@
          * @param string $msg
          */
        protected function say($msg) {
+	   
+			$privNick = explode("!", $this->privSource); // Split into nickname and user/host name.
+			$privNick = $privNick[0]; // We only want the nickname.
+	   
+			$toNick = ($this->source == $this->bot->getNick()) ? $privNick : $this->source; // If the message was a private one then forward back to the messaging user rather than ourself!
+	   
             $this->connection->sendData(
-                    'PRIVMSG ' . $this->source . ' :' . $msg
+                    'PRIVMSG '. $toNick .' :'. $msg
             );
         }
 

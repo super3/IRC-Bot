@@ -31,11 +31,11 @@ class Serialise extends \Library\IRC\Command\Base {
      */
     public function command() {
         $this->bot->serialise();
-		
-		preg_match("/(.+)!/", $this->privSource, $queryUser);
-		$queryUser = $queryUser[1];
-		
-		$this->say($queryUser .": I've finished serialising now!~ ^-^");
+        
+        preg_match("/(.+)!/", $this->privSource, $queryUser);
+        $queryUser = $queryUser[1];
+        
+        $this->say($queryUser .": I've finished serialising now!~ ^-^");
     }
 }
 ?>

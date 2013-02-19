@@ -46,12 +46,12 @@
          * @var array
          */
         protected $arguments = array ( );
-		
-		/**
+        
+        /**
          * Contains the nick/host/username of the user who issued the command.
          * @var string
          */
-		protected $privSource = null;
+        protected $privSource = null;
 
         /**
          * Contains channel or user name
@@ -94,9 +94,9 @@
          */
         public function executeCommand( array $arguments, $privSource, $source, $data ) {
             // Set priv source
-			$this->privSource = $privSource;
-			
-			// Set source
+            $this->privSource = $privSource;
+            
+            // Set source
             $this->source = $source;
 
             // Set data
@@ -122,13 +122,13 @@
          *
          * @param string $msg
          */
-       protected function say($msg) {
-	   
-			$privNick = explode("!", $this->privSource); // Split into nickname and user/host name.
-			$privNick = $privNick[0]; // We only want the nickname.
-	   
-			$toNick = ($this->source == $this->bot->getNick()) ? $privNick : $this->source; // If the message was a private one then forward back to the messaging user rather than ourself!
-	   
+        protected function say($msg) {
+       
+            $privNick = explode("!", $this->privSource); // Split into nickname and user/host name.
+            $privNick = $privNick[0]; // We only want the nickname.
+       
+            $toNick = ($this->source == $this->bot->getNick()) ? $privNick : $this->source; // If the message was a private one then forward back to the messaging user rather than ourself!
+       
             $this->connection->sendData(
                     'PRIVMSG '. $toNick .' :'. $msg
             );

@@ -22,8 +22,8 @@ return array(
         'Command\Timeout' => array(),
         'Command\Quit'    => array(),
         'Command\Restart' => array(),
-		'Command\Serialise' => array(),
-		'Command\Remember'  => array(),
+        'Command\Serialise' => array(),
+        'Command\Remember'  => array(),
     ),
     'listeners' => array(
         'Listener\Joins' => array(),

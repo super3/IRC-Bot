@@ -392,7 +392,6 @@
          */
         private function setWholeConfiguration( array $configuration ) {
             $this->setServer( $configuration['server'] );
-            $this->serverPassword( $configuration['serverPassword'] );
             $this->setPort( $configuration['port'] );
             $this->setChannel( $configuration['channel'] );
             $this->setName( $configuration['name'] );
@@ -408,6 +407,14 @@
          */
         public function setServer( $server ) {
             $this->connection->setServer( $server );
+        }
+        
+        /**
+         * Sets the server password for connecting to the server.
+         * @param string $server The server to set.
+         */
+        public function setServerPassword( $password ) {
+            $this->serverPassword = $password;
         }
 
         /**

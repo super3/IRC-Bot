@@ -37,6 +37,12 @@
          * @var \Library\IRC\Connection
          */
         private $connection = null;
+        
+        /**
+         * serverPassword
+         * @var string
+         */
+         private $serverPassword = '';
 
         /**
          * A list of all channels the bot should connect to.
@@ -176,8 +182,9 @@
             $this->log( 'The following listeners are known by the bot: "' . implode( ',', array_keys( $this->listeners ) ) . '".', 'INFO' );
 
             $this->connection->connect();
-            $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
+            $this->sendDataToServer( 'PASS ' . $this->serverPassword );
             $this->sendDataToServer( 'NICK ' . $this->nickToUse );
+            $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
 
             $this->main();
         }
@@ -385,6 +392,7 @@
          */
         private function setWholeConfiguration( array $configuration ) {
             $this->setServer( $configuration['server'] );
+            $this->serverPassword( $configuration['serverPassword'] );
             $this->setPort( $configuration['port'] );
             $this->setChannel( $configuration['channel'] );
             $this->setName( $configuration['name'] );

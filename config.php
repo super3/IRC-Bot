@@ -1,6 +1,7 @@
 <?php
 return array(
     'server'   => 'irc.freenode.org',
+    'serverPassword' => '',
     'port'     => 6667,
     'name'     => 'phpbot',
     'nick'     => 'phpbot',

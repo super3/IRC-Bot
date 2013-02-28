@@ -16,7 +16,7 @@ class Join extends \Library\IRC\Command\Base {
     *
     * @var string
     */
-    protected $help = '!join [#channel]';
+    protected $help = '!join {[#channel],<password>} {[#channel],<password>} etc';
 
 
     /**
@@ -26,7 +26,7 @@ class Join extends \Library\IRC\Command\Base {
      *
      * @var integer
      */
-    protected $numberOfArguments = 1;
+    protected $numberOfArguments = -1;
 
     /**
      * Joins the specified channel.
@@ -34,7 +34,11 @@ class Join extends \Library\IRC\Command\Base {
      * IRC-Syntax: JOIN [#channel]
      */
     public function command() {
-        $this->connection->sendData('JOIN '.$this->arguments[0]);
+        foreach ($this->arguments as $arg)
+        {
+            $args = explode(',', $arg);
+            $this->connection->sendData('JOIN '. $args[0] .' '. $args[1]);
+        }
     }
 }
 ?>

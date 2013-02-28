@@ -342,14 +342,14 @@
          *
          * @author Super3 <admin@wildphp.com>
          */
-        private function join_channel( $channel ) {
+        private function join_channel( $channel, $key = '' ) {
             if (is_array( $channel )) {
-                foreach ($channel as $chan) {
-                    $this->sendDataToServer( 'JOIN ' . $chan );
+                foreach ($channel as $chan => $key) {
+                    $this->sendDataToServer( 'JOIN ' . $chan .''. $key );
                 }
             }
             else {
-                $this->sendDataToServer( 'JOIN ' . $channel );
+                $this->sendDataToServer( 'JOIN ' . $channel .''. $key );
             }
         }
 

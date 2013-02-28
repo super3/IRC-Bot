@@ -5,7 +5,7 @@ return array(
     'name'     => 'phpbot',
     'nick'     => 'phpbot',
     'channels' => array(
-        '#phpbot404',
+        '#phpbot404' => '',
     ),
     'max_reconnects' => 1,
     'log_file'       => 'log.txt',

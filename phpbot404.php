@@ -36,7 +36,7 @@
 
     // Configure the bot.
     $bot->setServer( $config['server'] );
-    $bot->setServerPassword = $config['serverPassword'];
+    $bot->setServerPassword( $config['serverPassword'] );
     $bot->setPort( $config['port'] );
     $bot->setChannel( $config['channels'] );
     $bot->setName( $config['name'] );

@@ -392,6 +392,7 @@
          */
         private function setWholeConfiguration( array $configuration ) {
             $this->setServer( $configuration['server'] );
+            $this->serServerPassword( $configuration['serverPassword'] );
             $this->setPort( $configuration['port'] );
             $this->setChannel( $configuration['channel'] );
             $this->setName( $configuration['name'] );

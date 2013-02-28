@@ -345,11 +345,11 @@
         private function join_channel( $channel, $key = '' ) {
             if (is_array( $channel )) {
                 foreach ($channel as $chan => $key) {
-                    $this->sendDataToServer( 'JOIN ' . $chan .''. $key );
+                    $this->sendDataToServer( 'JOIN ' . $chan .' '. $key );
                 }
             }
             else {
-                $this->sendDataToServer( 'JOIN ' . $channel .''. $key );
+                $this->sendDataToServer( 'JOIN ' . $channel .' '. $key );
             }
         }
 

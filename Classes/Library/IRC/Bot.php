@@ -37,12 +37,12 @@
          * @var \Library\IRC\Connection
          */
         private $connection = null;
-        
-        /**
-         * serverPassword
-         * @var string
-         */
-         private $serverPassword = '';
+		
+		/**
+		 * serverPassword
+		 * @var string
+		 */
+		 private $serverPassword = '';
 
         /**
          * A list of all channels the bot should connect to.
@@ -182,8 +182,8 @@
             $this->log( 'The following listeners are known by the bot: "' . implode( ',', array_keys( $this->listeners ) ) . '".', 'INFO' );
 
             $this->connection->connect();
-            $this->sendDataToServer( 'PASS ' . $this->serverPassword );
-            $this->sendDataToServer( 'NICK ' . $this->nickToUse );
+			$this->sendDataToServer( 'PASS ' . $this->serverPassword );
+			$this->sendDataToServer( 'NICK ' . $this->nickToUse );
             $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
 
             $this->main();
@@ -212,7 +212,7 @@
                     }
 
                     // We're welcome. Let's join the configured channel/-s.
-                    if (stripos( $data, 'Welcome' ) !== false) {
+                    if (stripos( $data, 'End of /MOTD command' ) !== false) {
                         $this->join_channel( $this->channel );
                     }
 
@@ -392,7 +392,7 @@
          */
         private function setWholeConfiguration( array $configuration ) {
             $this->setServer( $configuration['server'] );
-            $this->serServerPassword( $configuration['serverPassword'] );
+			$this->serServerPassword( $configuration['serverPassword'] );
             $this->setPort( $configuration['port'] );
             $this->setChannel( $configuration['channel'] );
             $this->setName( $configuration['name'] );
@@ -409,14 +409,14 @@
         public function setServer( $server ) {
             $this->connection->setServer( $server );
         }
-        
-        /**
+		
+		/**
          * Sets the server password for connecting to the server.
          * @param string $server The server to set.
          */
-        public function setServerPassword( $password ) {
-            $this->serverPassword = $password;
-        }
+		public function setServerPassword( $password ) {
+			$this->serverPassword = $password;
+		}
 
         /**
          * Sets the port.

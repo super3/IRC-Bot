@@ -25,6 +25,7 @@ Web
 * !weather [location] - Returns weather data for location.
 * !poke [#channel] [username] - Pokes the specified IRC user.
 * !joke - Returns random joke. Fetched from [ICNDb.com](http://www.icndb.com/).
+* !imdb [movie title] - Searches for movie and returns it's information.
 
 
 ### Listeners

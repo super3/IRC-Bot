@@ -30,7 +30,6 @@ return array(
     ),
     'listeners' => array(
         'Listener\Joins'	=> array(),
-        #'Listener\Images'	=> array(),
         'Listener\Youtube'  => array(),
     ),
 );

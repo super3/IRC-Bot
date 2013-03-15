@@ -69,9 +69,13 @@ Stop
 
     stop phpbot404
 
-Sample Usage and Output
--------
+### Sample Usage and Output
+
     <random-user> !say #wildphp hello there
     <wildphp-bot> hello there
     <random-user> !poke #wildphp random-user
     * wildphp-bot pokes random-user
+    
+### Community
+
+IRC: [#phpbot404@freenode.net](http://webchat.freenode.net/?channels=phpbot404)

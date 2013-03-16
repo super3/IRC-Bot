@@ -42,7 +42,7 @@
          * serverPassword
          * @var string
          */
-         private $serverPassword = '';
+        private $serverPassword = '';
 
         /**
          * A list of all channels the bot should connect to.

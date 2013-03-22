@@ -542,5 +542,7 @@
         }
         
         public function getNick() { return $this->nick; }
+        
+        public function getConnection() { return $this->connection; }
     }
 ?>

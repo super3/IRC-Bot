@@ -32,7 +32,7 @@ class Say extends \Library\IRC\Command\Base {
      * IRC-Syntax: PRIVMSG [#channel]or[user] : [message]
      */
     public function command() {
-        $this->say(implode( ' ', array_slice( $this->arguments, 1 ) ));
+        $this->say(implode( ' ', array_slice( $this->arguments, 1 ) ), $this->arguments[0]);
     }
 }
 ?>

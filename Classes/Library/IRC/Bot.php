@@ -545,6 +545,14 @@
             $this->log($beginningString ." '". $this->getClassName($object) ."' ". self::$serialiseStrings[ucfirst($methodName) ." End". $fail], $logType);
         }
 
+        /**
+         * Returns a specific requested command.
+         * Please inspect \Library\IRC\Bot::$commands to find out the name
+         * @param string $commands
+         * @return \Library\IRC\Command\Base
+         */
+        public function getCommand($command) { return $this->commands[$command]; }
+
         public function getCommands() {
             return $this->commands;
         }
@@ -552,9 +560,23 @@
         public function getCommandPrefix() {
             return $this->commandPrefix;
         }
-        
+
         public function getNick() { return $this->nick; }
-        
+
         public function getConnection() { return $this->connection; }
+
+        /**
+         * Return a list of loaded listeners
+         * @return array
+         */
+        public function getListeners() { return $this->listeners; }
+
+        /**
+         * Returns a specific requested listener.
+         * Please inspect \Library\IRC\Bot::$listeners to find out the name
+         * @param string $listener
+         * @return \Library\IRC\Listener\Base
+         */
+        public function getListener($listener) { return $this->listeners[$listener]; }
     }
 ?>

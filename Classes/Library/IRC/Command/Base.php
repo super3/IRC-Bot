@@ -27,19 +27,7 @@
      * @subpackage Library
      * @author Daniel Siepmann <daniel.siepmann@me.com>
      */
-    abstract class Base {
-
-        /**
-         * Reference to the IRC Connection.
-         * @var \Library\IRC\Connection
-         */
-        protected $connection = null;
-
-        /**
-         * Reference to the IRC Bot
-         * @var \Lirary\IRC\Bot
-         */
-        protected $bot = null;
+    abstract class Base extends \Library\IRC\Base {
 
         /**
          * Contains all given arguments.
@@ -117,25 +105,6 @@
             }
         }
 
-        /**
-         * Sends PRIVMSG to source with $msg
-         *
-         * @param string $msg
-         */
-        protected function say($msg, $source = "default") {
-       
-            $privNick = explode("!", $this->privSource); // Split into nickname and user/host name.
-            $privNick = $privNick[0]; // We only want the nickname.
-       
-            $toNick = ($this->source == $this->bot->getNick()) ? $privNick : $this->source; // If the message was a private one then forward back to the messaging user rather than ourself!
-            
-            $toNick = ($source == "default") ? $toNick : $source;
-       
-            $this->connection->sendData(
-                    'PRIVMSG '. $toNick .' :'. $msg
-            );
-        }
-
         private function getHelp() {
            return $this->help;
         }
@@ -148,23 +117,6 @@
             echo 'fail';
             flush();
             throw new Exception( 'You have to overwrite the "command" method and the "executeCommand". Call the parent "executeCommand" and execute your custom "command".' );
-        }
-
-        /**
-         * Set's the IRC Connection, so we can use it to send data to the server.
-         * @param \Library\IRC\Connection $ircConnection
-         */
-        public function setIRCConnection( \Library\IRC\Connection $ircConnection ) {
-            $this->connection = $ircConnection;
-        }
-
-        /**
-         * Set's the IRC Bot, so we can use it to send data to the server.
-         *
-         * @param \Library\IRCBot $ircBot
-         */
-        public function setIRCBot( \Library\IRC\Bot $ircBot ) {
-            $this->bot = $ircBot;
         }
 
         /**
@@ -186,37 +138,6 @@
             }
 
             return null;
-        }
-
-        /**
-         * Fetches data from $uri
-         *
-         * @param string $uri
-         * @return string
-         */
-        protected function fetch($uri) {
-
-            $this->bot->log("Fetching from URI: " . $uri);
-
-            // create curl resource
-            $ch = curl_init();
-
-            // set url
-            curl_setopt($ch, CURLOPT_URL, $uri);
-
-            //return the transfer as a string
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
-
-            // $output contains the output string
-            $output = curl_exec($ch);
-
-            // close curl resource to free up system resources
-            curl_close($ch);
-
-            $this->bot->log("Data fetched: " . $output);
-
-            return $output;
         }
     }
 ?>

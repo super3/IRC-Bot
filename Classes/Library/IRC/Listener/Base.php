@@ -18,17 +18,6 @@ abstract class Base extends \Library\IRC\Base
     abstract function getKeywords();
 
     /**
-     * Sends PRIVMSG to source with $msg
-     *
-     * @param string $msg
-     */
-    protected function say($msg, $source) {
-        $this->connection->sendData(
-                'PRIVMSG ' . $source . ' :' . $msg
-        );
-    }
-
-    /**
      * Returns the raw data as an array of parsed data.
      * @param string $data
      * @return array

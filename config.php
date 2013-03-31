@@ -2,6 +2,7 @@
 return array(
     'server'   => 'irc.freenode.org',
     'serverPassword' => '',
+	'masterPassword' => '',
     'port'     => 6667,
     'name'     => 'phpbot',
     'nick'     => 'phpbot',

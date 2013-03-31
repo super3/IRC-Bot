@@ -185,6 +185,12 @@
             $this->sendDataToServer( 'PASS ' . $this->serverPassword );
             $this->sendDataToServer( 'NICK ' . $this->nickToUse );
             $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
+			
+			// Create Socket for Slave Process //
+			$botSocket = socket_create(AF_UNIX, SOCK_STREAM, 0);
+			$socketBind = socket_bind($botSocket, "/tmp/bot.socket");
+			socket_listen($botSocket);
+			/////////////////////////////////////
 
             $this->main();
         }

@@ -14,9 +14,9 @@ class Joins extends \Library\IRC\Listener\Base {
      * Main function to execute when listen even occurs
      */
     public function execute($data) {
-        $args = $this->getArguments($data);
+        $args = $this->getInfo();
 
-        $this->say($this->getUserNickName($args[0]) . ", welcome to channel " . $args[2] . ". Try following commands: " . $this->getCommandsName(), $args[2]);
+        $this->say($args->nick . ", welcome to channel " . $args->channel . ". Try following commands: " . $this->getCommandsName(), $args->channel);
     }
 
     private function getCommandsName() {

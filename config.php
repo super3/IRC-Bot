@@ -1,11 +1,12 @@
 <?php
 return array(
     'server'   => 'irc.freenode.org',
+    'serverPassword' => '',
     'port'     => 6667,
     'name'     => 'phpbot',
     'nick'     => 'phpbot',
     'channels' => array(
-        '#phpbot404',
+        '#phpbot404' => '',
     ),
     'max_reconnects' => 1,
     'log_file'       => 'log.txt',
@@ -23,6 +24,8 @@ return array(
         'Command\Timeout' => array(),
         'Command\Quit'    => array(),
         'Command\Restart' => array(),
+        'Command\Serialise' => array(),
+        'Command\Remember'  => array(),
     ),
     'listeners' => array(
         'Listener\Joins' => array(),

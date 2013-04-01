@@ -95,6 +95,7 @@ abstract class Base
      *
      * @param string $msg
      * @author Daniel Siepmann <daniel.siepmann@me.com>
+     * @author Jack Blower <Jack@elvenspellmaker.co.uk>
      */
     protected function say($msg, $source = "default") {
         $privNick = explode("!", $this->privSource); // Split into nickname and user/host name.

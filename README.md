@@ -1,4 +1,4 @@
-# PHP IRC-BOT (WildPHP)
+# WildBot - IRC Bot
 A IRC Bot built in PHP (using sockets) with OOP. Designed to run off a local LAMP, WAMP, or MAMP stack.
 Includes a custom [Upstart](http://upstart.ubuntu.com/) script to run as Linux daemon.
 
@@ -18,6 +18,7 @@ Web
 * !timeout [seconds] - Bot leaves for the specified number of seconds.
 * !restart - Quits and restarts the script.
 * !quit - Quits and stops the script.
+* /msg [botname] !admin [password] - Identify as the admin. 
 
 ### Entended Commands
 
@@ -49,29 +50,29 @@ Copy configuration file and customize its content.
 
 Copy Upstart script to folder and make appropriate changes.
 
-    sudo cp bin/phpbot404.conf /etc/init/
+    sudo cp bin/wildbot.conf /etc/init/
 
 ### Run
 
 Run as PHP
 
-    php phpbot404.php
+    php wildbot.php
 
 or Upstart service
 
-    start phpbot404
+    start wildbot
 
 Restart
 
-    restart phpbot404
+    restart wildbot
 
 Stop
 
-    stop phpbot404
+    stop wildbot
 
 Sample Usage and Output
 -------
-    <random-user> !say #wildphp hello there
-    <wildphp-bot> hello there
-    <random-user> !poke #wildphp random-user
-    * wildphp-bot pokes random-user
+    <random-user> !say #wildbot hello there
+    <wildbot> hello there
+    <random-user> !poke #wildbot random-user
+    * wildbot pokes random-user

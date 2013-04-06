@@ -10,7 +10,7 @@
      *
      * @license    http://creativecommons.org/licenses/by/3.0/
      *
-     * @package IRCBot
+     * @package WildBot
      * @subpackage Library
      * @author Jack Blower <Jack@elevnspellmaker.co.uk
      *
@@ -25,7 +25,7 @@
     /**
      * Description of SayRedirection
      *
-     * @package IRCBot
+     * @package WildBot
      * @subpackage Library
      * @author Jack Blower <Jack@elvenspellmaker.co.uk>
      */

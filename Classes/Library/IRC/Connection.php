@@ -10,7 +10,7 @@
      *
      * @license    http://creativecommons.org/licenses/by/3.0/
      *
-     * @package IRCBot
+     * @package WildBot
      * @subpackage Interface
      *
      * @encoding UTF-8
@@ -25,7 +25,7 @@
      * Interface for irc connection.
      * Defines how to connect and communicate with the irc server.
      *
-     * @package IRCBot
+     * @package WildBot
      * @subpackage Interface
      *
      * @author Daniel Siepmann <coding.layne@me.com>
@@ -67,4 +67,4 @@
         public function isConnected();
 
     }
-?>
+

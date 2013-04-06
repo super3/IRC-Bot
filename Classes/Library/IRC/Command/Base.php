@@ -9,7 +9,7 @@
  *
  * @license http://creativecommons.org/licenses/by/3.0/
  *
- * @package IRCBot
+ * @package WildBot
  * @subpackage Library
  * @author Daniel Siepmann <coding.layne@me.com>
  *
@@ -20,14 +20,14 @@ namespace Library\IRC\Command;
 /**
  * An IRC command.
  *
- * @package IRCBot
+ * @package WildBot
  * @subpackage Library
  * @author Daniel Siepmann <daniel.siepmann@me.com>
  */
 abstract class Base extends \Library\IRC\Base {
     /**
      * The number of arguments the command needs.
-     *
+     * By default no arguments are to be given.
      * You have to define this in the command.
      *
      * @var integer
@@ -43,21 +43,34 @@ abstract class Base extends \Library\IRC\Base {
      * @var string
      */
     protected $help = '';
+
+    /**
+     * Require admin, set to true if only admin may execute this.
+     * @var boolean
+     */
+    protected $requireAdmin = false;
+
+    /**
+     * Returns whether admin is required for this command or not
+     * @var boolean
+     */
+    public function requiresAdmin() {
+        return $this->requireAdmin;
+    }
     
     /**
      * Executes the command.
      *
      * @param array $arguments
-     *            The assigned arguments.
      * @param string $source
-     *            Originating request
      * @param string $data
-     *            Original data from server
      */
     public function executeCommand() {
         // If a number of arguments is incorrect then run the command, if
         // not then show the relevant help text.
-        if ( $this->numberOfArguments != -1 && count( $this->arguments ) != $this->numberOfArguments ) {
+        if ( $this->requireAdmin && !$this->getInfo()->is_admin ) {
+            return;
+        } elseif ( $this->numberOfArguments != -1 && count( $this->arguments ) != $this->numberOfArguments ) {
             // Show help text.
             $this->say( ' Incorrect Arguments. Usage: ' . $this->getHelp() );
         } else {
@@ -68,21 +81,11 @@ abstract class Base extends \Library\IRC\Base {
     
     /**
      * Get the help string
-     * 
+     *
      * @return string
      */
     private function getHelp() {
         return $this->help;
-    }
-    
-    /**
-     * Overwrite this method for your needs.
-     * This method is called if the command get's executed.
-     */
-    public function command() {
-        echo 'fail';
-        flush();
-        throw new Exception( 'You have to overwrite the "command" method and the "executeCommand". Call the parent "executeCommand" and execute your custom "command".' );
     }
     
     /**
@@ -102,4 +105,10 @@ abstract class Base extends \Library\IRC\Base {
         }
         return null;
     }
+    
+    /**
+     * Overwrite this method for your needs.
+     * This method is called if the command get's executed.
+     */
+    abstract public function command();
 }

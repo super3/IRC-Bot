@@ -10,7 +10,7 @@
      *
      * @license    http://creativecommons.org/licenses/by/3.0/
      *
-     * @package IRCBot
+     * @package WildBot
      * @subpackage Library
      *
      * @encoding UTF-8
@@ -24,7 +24,7 @@
     /**
      * Delivers a connection via socket to the IRC server.
      *
-     * @package IRCBot
+     * @package WildBot
      * @subpackage Library
      * @author Daniel Siepmann <Daniel.Siepmann@wfp2.com>
      */
@@ -127,4 +127,4 @@
         }
 
     }
-?>
+

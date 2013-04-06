@@ -2,10 +2,11 @@
 return array(
     'server'   => 'irc.freenode.org',
     'serverPassword' => '',
-    'masterPassword' => '',
     'port'     => 6667,
     'name'     => 'phpbot',
     'nick'     => 'phpbot',
+    'adminPassword' => '',
+    'commandPrefix' => '!',
     'channels' => array(
         '#phpbot404' => '',
     ),
@@ -14,10 +15,11 @@ return array(
     'commands'       => array(
         'Command\Say'     => array(),
         'Command\Weather' => array(
-            'yahooKey' => 'a',
+            'yahooKey' => 'ChangeMe',
         ),
         'Command\Joke'    => array(),
         'Command\Ip'      => array(),
+        'Command\Yt'      => array(),
         'Command\Imdb'    => array(),
         'Command\Poke'    => array(),
         'Command\Join'    => array(),
@@ -30,6 +32,5 @@ return array(
     ),
     'listeners' => array(
         'Listener\Joins' => array(),
-        'Listener\Master' => array(),
     ),
 );

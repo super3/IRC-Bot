@@ -6,3 +6,6 @@ Documentation/*
 config.local.php
 
 .idea
+/config.php
+config.php
+config.php.sample

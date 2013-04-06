@@ -4,21 +4,21 @@ namespace Command;
 
 /**
  * Sends the arguments to the channel, like say from a user.
- * arguments[0] == Channel or User to send Poke to.
- * arguments[1] == Poke Victim.
  *
- * @package IRCBot
+ * @package WildBot
  * @subpackage Command
  * @author Super3 <admin@wildphp.com>
  */
 class Poke extends \Library\IRC\Command\Base {
     /**
-    * The command's help text.
-    *
-    * @var string
-    */
-    protected $help = '!poke [#channel]or[user] [user]';
-
+     * The command's help text.
+     * arguments[0] == Channel or User to send Poke to.
+     * arguments[1] == Poke Victim.
+     *
+     * @var string
+     */
+    protected $help = '!poke [#channel] [user] OR !poke [user]';
+    
     /**
      * The number of arguments the command needs.
      *
@@ -26,8 +26,8 @@ class Poke extends \Library\IRC\Command\Base {
      *
      * @var integer
      */
-    protected $numberOfArguments = 2;
-
+    protected $maxArgs = 2;
+    
     /**
      * Sends the arguments to the channel, like say from a user.
      *
@@ -37,10 +37,6 @@ class Poke extends \Library\IRC\Command\Base {
      * it not needed when sending a regular text message.
      */
     public function command() {
-        $this->connection->sendData(
-            'PRIVMSG ' . $this->arguments[0] .
-            ' :'. chr(1). 'ACTION pokes '. trim($this->arguments[1]). chr(1)
-        );
+        $this->connection->sendData( 'PRIVMSG ' . $this->arguments[0] . ' :' . chr( 1 ) . 'ACTION pokes ' . trim( $this->arguments[1] ) . chr( 1 ) );
     }
 }
-?>

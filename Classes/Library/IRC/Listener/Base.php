@@ -6,7 +6,6 @@ abstract class Base extends \Library\IRC\Base
     /**
      * The listener main function.
      * @param string The raw data the listener receives.
-     *
       */
     abstract function execute($data);
 

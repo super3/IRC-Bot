@@ -18,12 +18,11 @@ class Serialise extends \Library\IRC\Command\Base {
     protected $help = '!serialise';
 
     /**
-     * The number of arguments the command needs.
-     *
-     * @var integer
+     * Require admin, set to true if only admin may execute this.
+     * @var boolean
      */
-    protected $numberOfArguments = 0;
-
+    protected $requireAdmin = true;
+    
     /**
      * Sends the arguments to the channel, like say from a user.
      *
@@ -32,10 +31,9 @@ class Serialise extends \Library\IRC\Command\Base {
     public function command() {
         $this->bot->serialise();
         
-        preg_match("/(.+)!/", $this->privSource, $queryUser);
+        preg_match( "/(.+)!/", $this->privSource, $queryUser );
         $queryUser = $queryUser[1];
         
-        $this->say($queryUser .": I've finished serialising now!~ ^-^");
+        $this->say( $queryUser . ": I've finished serialising now!~ ^-^" );
     }
 }
-?>

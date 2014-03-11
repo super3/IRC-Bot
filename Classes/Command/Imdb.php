@@ -1,4 +1,4 @@
-<?
+<?php
 // Namespace
 namespace Command;
 

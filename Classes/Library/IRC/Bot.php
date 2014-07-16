@@ -79,7 +79,7 @@ class Bot {
      * Defines the prefix for all commands interacting with the bot.
      * @var String
      */
-    private $commandPrefix = '!';
+    protected $commandPrefix = '!';
 
     /**
      * All of the messages both server and client

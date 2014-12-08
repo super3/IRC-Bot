@@ -29,6 +29,13 @@
         $config = include_once(ROOT_DIR . '/config.php');
     }
 
+    if (empty(ini_get('date.timezone'))) {
+        if (empty($config['timezone']))
+            $config['timezone'] = 'UTC';
+
+        date_default_timezone_set($config['timezone']);
+    }
+
     spl_autoload_register( 'Autoloader::load' );
 
     // Create the bot.

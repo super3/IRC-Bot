@@ -57,6 +57,12 @@ class Bot {
     private $nick = '';
 
     /**
+     * The IRC password for the bot. 
+     * @var string
+     */ 
+    private $password = '';
+
+    /**
      * The number of reconnects before the bot stops running.
      * @var integer
      */
@@ -165,6 +171,13 @@ class Bot {
         $this->log( 'The following listeners are known by the bot: "' . implode( ',', array_keys( $this->listeners ) ) . '".', 'INFO' );
 
         $this->connection->connect();
+      
+        if (isset($this->password)) {
+            if (strlen($this->password) > 0) {
+                $this->sendDataToServer( 'PASS ' . $this->password );
+            }
+        }        
+
         $this->sendDataToServer( 'USER ' . $this->nickToUse . ' Layne-Obserdia.de ' . $this->nickToUse . ' :' . $this->name );
         $this->sendDataToServer( 'NICK ' . $this->nickToUse );
 
@@ -373,6 +386,9 @@ class Bot {
         $this->setChannel( $configuration['channel'] );
         $this->setName( $configuration['name'] );
         $this->setNick( $configuration['nick'] );
+        if (isset($configuration['password'])) {
+            $this->setPassword($configuration['password']);
+        }
         $this->setMaxReconnects( $configuration['maxReconnects'] );
         $this->setLogFile( $configuration['logFile'] );
     }
@@ -412,6 +428,15 @@ class Bot {
     public function setName( $name ) {
         $this->name = (string) $name;
     }
+
+    /**
+     * Sets the IRC password for the bot
+     * @param string $password The password for the IRC server.
+     */ 
+     
+     public function setPassword($password) {
+        $this->password = (string) $password;
+     }
 
     /**
      * Sets the nick of the bot.

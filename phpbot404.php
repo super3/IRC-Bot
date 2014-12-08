@@ -40,6 +40,9 @@
     $bot->setChannel( $config['channels'] );
     $bot->setName( $config['name'] );
     $bot->setNick( $config['nick']);
+    if ( isset( $config['password'] ) ) {
+        $bot->setPassword ( $config['password'] );
+    }
     $bot->setMaxReconnects( $config['max_reconnects'] );
     $bot->setLogFile( $config['log_file'] );
 

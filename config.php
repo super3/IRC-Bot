@@ -3,6 +3,7 @@ return array(
     'server'   => 'irc.freenode.org',
     'port'     => 6667,
     'name'     => 'phpbot',
+    'password' => '',
     'nick'     => 'phpbot',
     'channels' => array(
         '#phpbot404',

@@ -29,7 +29,8 @@
         $config = include_once(ROOT_DIR . '/config.php');
     }
 
-    if (empty(ini_get('date.timezone'))) {
+    $timezone = ini_get('date.timezone');
+    if (empty($timezone)) {
         if (empty($config['timezone']))
             $config['timezone'] = 'UTC';
 

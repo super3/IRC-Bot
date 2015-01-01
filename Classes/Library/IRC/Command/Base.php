@@ -1,92 +1,101 @@
 <?php
     /**
-     * LICENSE: This source file is subject to Creative Commons Attribution
-     * 3.0 License that is available through the world-wide-web at the following URI:
-     * http://creativecommons.org/licenses/by/3.0/.  Basically you are free to adapt
-     * and use this script commercially/non-commercially. My only requirement is that
-     * you keep this header as an attribution to my work. Enjoy!
-     *
-     * @license http://creativecommons.org/licenses/by/3.0/
-     *
-     * @package IRCBot
-     * @subpackage Library
-     * @author Daniel Siepmann <coding.layne@me.com>
-     *
-     * @encoding UTF-8
-     * @created 30.12.2011 20:29:55
-     *
-     * @filesource
-     */
+* LICENSE: This source file is subject to Creative Commons Attribution
+* 3.0 License that is available through the world-wide-web at the following URI:
+* http://creativecommons.org/licenses/by/3.0/. Basically you are free to adapt
+* and use this script commercially/non-commercially. My only requirement is that
+* you keep this header as an attribution to my work. Enjoy!
+*
+* @license http://creativecommons.org/licenses/by/3.0/
+*
+* @package IRCBot
+* @subpackage Library
+* @author Daniel Siepmann <coding.layne@me.com>
+*
+* @encoding UTF-8
+* @created 30.12.2011 20:29:55
+*
+* @filesource
+*/
 
     namespace Library\IRC\Command;
 
     /**
-     * An IRC command.
-     *
-     * @package IRCBot
-     * @subpackage Library
-     * @author Daniel Siepmann <daniel.siepmann@me.com>
-     */
+* An IRC command.
+*
+* @package IRCBot
+* @subpackage Library
+* @author Daniel Siepmann <daniel.siepmann@me.com>
+*/
     abstract class Base {
 
         /**
-         * Reference to the IRC Connection.
-         * @var \Library\IRC\Connection
-         */
+* Reference to the IRC Connection.
+* @var \Library\IRC\Connection
+*/
         protected $connection = null;
 
         /**
-         * Reference to the IRC Bot
-         * @var \Lirary\IRC\Bot
-         */
+* Reference to the IRC Bot
+* @var \Lirary\IRC\Bot
+*/
         protected $bot = null;
 
         /**
-         * Contains all given arguments.
-         * @var array
-         */
+* Contains all given arguments.
+* @var array
+*/
         protected $arguments = array ( );
+        
+        /**
+* Contains the nick/host/username of the user who issued the command.
+* @var string
+*/
+        protected $privSource = null;
 
         /**
-         * Contains channel or user name
-         *
-         * @var string
-         */
+* Contains channel or user name
+*
+* @var string
+*/
         protected $source = null;
 
         /**
-         * Original request from server
-         *
-         * @var string
-         */
+* Original request from server
+*
+* @var string
+*/
         private $data;
 
         /**
-         * The number of arguments the command needs.
-         *
-         * You have to define this in the command.
-         *
-         * @var integer
-         */
+* The number of arguments the command needs.
+*
+* You have to define this in the command.
+*
+* @var integer
+*/
         protected $numberOfArguments = 0;
 
         /**
-         * The help string, shown to the user if he calls the command with wrong parameters.
-         *
-         * You have to define this in the command.
-         *
-         * @var string
-         */
+* The help string, shown to the user if he calls the command with wrong parameters.
+*
+* You have to define this in the command.
+*
+* @var string
+*/
         protected $help = '';
 
         /**
-         * Executes the command.
-         *
-         * @param array           $arguments The assigned arguments.
-         * @param string          $source    Originating request
-         * @param string          $data      Original data from server
-         */
-        public function executeCommand( array $arguments, $source, $data ) {
+* Executes the command.
+*
+* @param array $arguments The assigned arguments.
+* @param string $source Originating request
+* @param string $data Original data from server
+*/
+        public function executeCommand( array $arguments, $privSource, $source, $data ) {
+            // Set priv source
+            $this->privSource = $privSource;
+            
             // Set source
             $this->source = $source;
 
@@ -109,13 +118,19 @@
         }
 
         /**
-         * Sends PRIVMSG to source with $msg
-         *
-         * @param string $msg
-         */
-       protected function say($msg) {
+* Sends PRIVMSG to source with $msg
+*
+* @param string $msg
+*/
+        protected function say($msg) {
+       
+            $privNick = explode("!", $this->privSource); // Split into nickname and user/host name.
+            $privNick = $privNick[0]; // We only want the nickname.
+       
+            $toNick = ($this->source == $this->bot->getNick()) ? $privNick : $this->source; // If the message was a private one then forward back to the messaging user rather than ourself!
+       
             $this->connection->sendData(
-                    'PRIVMSG ' . $this->source . ' :' . $msg
+                    'PRIVMSG '. $toNick .' :'. $msg
             );
         }
 
@@ -124,9 +139,9 @@
         }
 
         /**
-         * Overwrite this method for your needs.
-         * This method is called if the command get's executed.
-         */
+* Overwrite this method for your needs.
+* This method is called if the command get's executed.
+*/
         public function command() {
             echo 'fail';
             flush();
@@ -134,27 +149,27 @@
         }
 
         /**
-         * Set's the IRC Connection, so we can use it to send data to the server.
-         * @param \Library\IRC\Connection $ircConnection
-         */
+* Set's the IRC Connection, so we can use it to send data to the server.
+* @param \Library\IRC\Connection $ircConnection
+*/
         public function setIRCConnection( \Library\IRC\Connection $ircConnection ) {
             $this->connection = $ircConnection;
         }
 
         /**
-         * Set's the IRC Bot, so we can use it to send data to the server.
-         *
-         * @param \Library\IRCBot $ircBot
-         */
+* Set's the IRC Bot, so we can use it to send data to the server.
+*
+* @param \Library\IRCBot $ircBot
+*/
         public function setIRCBot( \Library\IRC\Bot $ircBot ) {
             $this->bot = $ircBot;
         }
 
         /**
-         * Returns requesting user IP
-         *
-         * @return string
-         */
+* Returns requesting user IP
+*
+* @return string
+*/
         protected function getUserIp() {
             // catches from @ to first space
             if (preg_match('/@([a-z0-9.-]*) /i', $this->data, $match) === 1) {
@@ -172,11 +187,11 @@
         }
 
         /**
-         * Fetches data from $uri
-         *
-         * @param string $uri
-         * @return string
-         */
+* Fetches data from $uri
+*
+* @param string $uri
+* @return string
+*/
         protected function fetch($uri) {
 
             $this->bot->log("Fetching from URI: " . $uri);

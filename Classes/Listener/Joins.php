@@ -3,16 +3,16 @@
 namespace Listener;
 
 /**
-*
-* @package IRCBot
-* @subpackage Listener
-* @author Matej Velikonja <matej@velikonja.si>
-*/
+ *
+ * @package IRCBot
+ * @subpackage Listener
+ * @author Matej Velikonja <matej@velikonja.si>
+ */
 class Joins extends \Library\IRC\Listener\Base {
 
     /**
-* Main function to execute when listen even occurs
-*/
+     * Main function to execute when listen even occurs
+     */
     public function execute($data) {
         $args = $this->getArguments($data);
 
@@ -32,7 +32,7 @@ class Joins extends \Library\IRC\Listener\Base {
     }
 
     private function getUserNickName($data) {
-        $result = preg_match('/([a-zA-Z0-9_]+)!/', $data, $matches);
+        $result = preg_match('/:([a-zA-Z0-9_]+)!/', $data, $matches);
 
         if ($result !== false) {
             return $matches[1];
@@ -42,10 +42,10 @@ class Joins extends \Library\IRC\Listener\Base {
     }
 
     /**
-* Returns keywords that listener is listening to.
-*
-* @return array
-*/
+     * Returns keywords that listener is listening to.
+     *
+     * @return array
+     */
     public function getKeywords() {
         return array("JOIN");
     }

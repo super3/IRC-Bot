@@ -25,25 +25,14 @@ class Say extends \Library\IRC\Command\Base {
      * @var integer
      */
     protected $numberOfArguments = -1;
-	
+
     /**
      * Sends the arguments to the channel, like say from a user.
      *
      * IRC-Syntax: PRIVMSG [#channel]or[user] : [message]
      */
     public function command() {
-		
-		if (!strlen($this->arguments[0]) OR !strlen($this->arguments[1]))
-		{
-			$this->say($this->help);
-			return;
-		}
-		
-		$this->connection->sendData(
-            'PRIVMSG ' . $this->arguments[0] .
-            ' :'. trim(implode( ' ', array_slice( $this->arguments, 1 ) ))
-        );
-        
+        $this->say(implode( ' ', array_slice( $this->arguments, 1 ) ));
     }
 }
 ?>

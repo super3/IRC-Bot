@@ -32,7 +32,6 @@ Web
 
 
 * Joins - Greets users when they join the channel.
-* Youtube - Returns videotitle of Youtube link.
 
 ## Install & Run
 

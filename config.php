@@ -8,6 +8,7 @@ return array(
     'channels' => array(
         '#phpbot404',
     ),
+    'timezone' => 'America/New_York',
     'max_reconnects' => 1,
     'log_file'       => 'log.txt',
     'commands'       => array(

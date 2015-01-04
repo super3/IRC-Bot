@@ -1,0 +1,11 @@
+[Unit]
+Description=WildPHP IRC Bot
+
+[Service]
+User=
+Group=
+ExecStart=/usr/bin/php /path/to/wildphp/phpbot404.php
+
+[Install]
+WantedBy=multi-user.target
+

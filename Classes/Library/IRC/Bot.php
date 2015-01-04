@@ -198,7 +198,7 @@ class Bot {
 
             // Check for some special situations and react:
             // The nickname is in use, create a now one using a counter and try again.
-            if (stripos( $data, 'Nickname is already in use.' ) !== false) {
+            if (stripos( $data, 'Nickname is already in use.' ) !== false && $this->getUserNickName($data) == 'NickServ')
                 $this->nickToUse = $this->nick . (++$this->nickCounter);
                 $this->sendDataToServer( 'NICK ' . $this->nickToUse );
             }
@@ -282,6 +282,21 @@ class Bot {
                 }
             }
         } while (true);
+    }
+    
+    /**
+     * Get the nickname from the data string.
+     *
+     * @param string $data The data to extract the nickname from.
+     */
+    public function getUserNickName($data) {
+        $result = preg_match('/:([a-zA-Z0-9_]+)!/', $data, $matches);
+
+        if ($result !== false) {
+            return $matches[1];
+        }
+
+        return false;
     }
 
     /**

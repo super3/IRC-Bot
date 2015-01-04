@@ -16,6 +16,13 @@ class Quit extends \Library\IRC\Command\Base {
     * @var string
     */
     protected $help = '!quit';
+    
+    /**
+     * Verify the user before executing this command.
+     *
+     * @var bool
+     */
+    protected $verify = true;
 
     /**
      * Leave IRC altogether. This disconnects from the server.

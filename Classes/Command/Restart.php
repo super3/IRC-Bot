@@ -16,6 +16,13 @@ class Restart extends \Library\IRC\Command\Base {
     * @var string
     */
     protected $help = '!restart';
+    
+    /**
+     * Verify the user before executing this command.
+     *
+     * @var bool
+     */
+    protected $verify = true;
 
     /**
      * Restarts the bot.

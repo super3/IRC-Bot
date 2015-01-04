@@ -76,6 +76,11 @@ Stop
     <random-user> !poke #wildphp random-user
     * wildphp-bot pokes random-user
     
-### Community
+### Upcoming Features
 
-IRC: [#phpbot404@freenode.net](http://webchat.freenode.net/?channels=phpbot404)
+* Hostname Authentication
+* Custom Quit Messages
+* Custom Prefixes
+* More Plugins
+* Bug Fixes
+* Extended Documentation

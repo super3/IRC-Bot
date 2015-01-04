@@ -22,8 +22,11 @@ class Restart extends \Library\IRC\Command\Base {
      */
     public function command() {
         // Exit from Sever
-        $this->connection->sendData('QUIT');
-
+        $this->connection->sendData('QUIT :Restarting...');
+		
+		// Wait 5 Seconds Before Rejoin
+		sleep(5);
+		
         // Reconnect to Server
         $this->bot->connectToServer();
     }

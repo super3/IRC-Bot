@@ -186,6 +186,9 @@
 
             // set url
             curl_setopt($ch, CURLOPT_URL, $uri);
+            
+            // Set a user agent. Some sites require it (e.g. GitHub API).
+            curl_setopt($ch, CURLOPT_USERAGENT, 'WildPHP/IRCBot');
 
             //return the transfer as a string
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

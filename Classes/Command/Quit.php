@@ -16,6 +16,13 @@ class Quit extends \Library\IRC\Command\Base {
     * @var string
     */
     protected $help = '!quit';
+    
+    /**
+     * The number of arguments the command needs.
+     *
+     * @var integer
+     */
+    protected $numberOfArguments = 0;
 
     /**
      * Leave IRC altogether. This disconnects from the server.

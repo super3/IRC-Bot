@@ -260,6 +260,11 @@ class Bot {
                 // $source finds the channel or user that the command originated.
                 $source = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[2] ) ), 0 );
                 $command = substr( trim( \Library\FunctionCollection::removeLineBreaks( $args[3] ) ), 1 );
+                
+                // Someone PMed me? Oh noes.
+                if ($source == $this->nickToUse && $args[1] == 'PRIVMSG')
+                    $source = $this->getUserNickName($args[0]);
+
                 $arguments = array_slice( $args, 4 );
                 unset( $args );
 

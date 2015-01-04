@@ -47,9 +47,16 @@ Copy configuration file and customize its content.
 
     cp config.php config.local.php
 
+#### For Upstart/Ubuntu/Debian users
 Copy Upstart script to folder and make appropriate changes.
 
     sudo cp bin/phpbot404.conf /etc/init/
+    
+#### For Systemd/Arch
+Copy the Systemd script to folder and edit it.
+
+    sudo cp bin/phpbot404.service /etc/systemd/system
+You can control the service with systemctl afterwards.
 
 ### Run
 

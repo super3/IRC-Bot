@@ -198,7 +198,7 @@ class Bot {
 
             // Check for some special situations and react:
             // The nickname is in use, create a now one using a counter and try again.
-            if (stripos( $data, 'Nickname is already in use.' ) !== false && $this->getUserNickName($data) == 'NickServ')
+            if (stripos( $data, 'Nickname is already in use.' ) !== false && $this->getUserNickName($data) == 'NickServ'){
                 $this->nickToUse = $this->nick . (++$this->nickCounter);
                 $this->sendDataToServer( 'NICK ' . $this->nickToUse );
             }

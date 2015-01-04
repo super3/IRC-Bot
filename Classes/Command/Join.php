@@ -18,7 +18,6 @@ class Join extends \Library\IRC\Command\Base {
     */
     protected $help = '!join [#channel]';
 
-
     /**
      * The number of arguments the command needs.
      *
@@ -27,6 +26,13 @@ class Join extends \Library\IRC\Command\Base {
      * @var integer
      */
     protected $numberOfArguments = 1;
+    
+    /**
+     * Verify the user before executing this command.
+     *
+     * @var bool
+     */
+    protected $verify = true;
 
     /**
      * Joins the specified channel.

@@ -29,4 +29,7 @@ return array(
     'listeners' => array(
         'Listener\Joins' => array(),
     ),
+    'hosts' => array(
+        'Add trusted hosts in here. These hosts have more privileges than regular users.',
+    ),
 );

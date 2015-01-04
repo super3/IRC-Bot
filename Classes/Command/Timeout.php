@@ -26,6 +26,13 @@ class Timeout extends \Library\IRC\Command\Base {
      * @var integer
      */
     protected $numberOfArguments = 1;
+    
+    /**
+     * Verify the user before executing this command.
+     *
+     * @var bool
+     */
+    protected $verify = true;
 
     /**
      * The bot disconnects for the specified number of seconds.

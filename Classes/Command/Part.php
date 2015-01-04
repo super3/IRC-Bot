@@ -26,6 +26,13 @@ class Part extends \Library\IRC\Command\Base {
      * @var integer
      */
     protected $numberOfArguments = 1;
+    
+    /**
+     * Verify the user before executing this command.
+     *
+     * @var bool
+     */
+    protected $verify = true;
 
     /**
      * Parts the specified channel.

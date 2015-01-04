@@ -78,6 +78,18 @@
          * @var string
          */
         protected $help = '';
+        
+        /**
+         * Verify the user before executing a command.
+         *
+         * Defaults to false to allow everyone to execute commands
+         * which do not have this flag set.
+         *
+         * This is optional to define in the command.
+         *
+         * @var bool
+         */
+        protected $verify = false;
 
         /**
          * Executes the command.
@@ -92,6 +104,25 @@
 
             // Set data
             $this->data = $data;
+            
+            // Do we verify the legitimacy of the user executing?
+            if (!empty($this->verify))
+            {
+                global $config;
+                // Get the host.
+                preg_match("/~([^\s]++)++/", $this->data, $hosts);
+
+                // Check if the user has privileges.
+                $this->bot->log('Requesting privileges for host ' . $hosts[0] . '...');
+                if (!in_array($hosts[0], $config['hosts']))
+                {
+                    // Nope. No access for you.
+                    $this->bot->log('Failed; this host is not trusted.');
+                    return;
+                }
+
+                $this->bot->log('Success; proceeding with command.');
+            }
 
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text.

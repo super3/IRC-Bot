@@ -273,6 +273,7 @@ class Bot {
                     $command = ucfirst( substr( $command, 1 ) );
                     // Command does not exist:
                     if (!array_key_exists( $command, $this->commands )) {
+                        $this->say( 'The command you entered does not exist.' );
                         $this->log( 'The following, not existing, command was called: "' . $command . '".', 'MISSING' );
                         $this->log( 'The following commands are known by the bot: "' . implode( ',', array_keys( $this->commands ) ) . '".', 'MISSING' );
                         continue;

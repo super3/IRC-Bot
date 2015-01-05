@@ -106,23 +106,13 @@
             $this->data = $data;
             
             // Do we verify the legitimacy of the user executing?
-            if (!empty($this->verify))
+            if (empty($this->verify) || !$this->verifyUser())
             {
-                global $config;
-                // Get the host.
-                preg_match("/~([^\s]++)++/", $this->data, $hosts);
-
-                // Check if the user has privileges.
-                $this->bot->log('Requesting privileges for host ' . $hosts[0] . '...');
-                if (!in_array($hosts[0], $config['hosts']))
-                {
-                    // Nope. No access for you.
-                    $this->bot->log('Failed; this host is not trusted.');
-                    return;
-                }
-
-                $this->bot->log('Success; proceeding with command.');
+                $this->bot->log('Failed to request permission; aborting command.');
+                return;
             }
+            else
+                $this->bot->log('Success; proceeding with command.');
 
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text.
@@ -161,6 +151,28 @@
 
             // Execute the command.
             $this->command();
+        }
+        
+        /**
+         * Checks the legitimacy of the user running a command.
+         *
+         */
+        protected function verifyUser()
+        {
+            global $config;
+            // Get the host.
+            preg_match("/~([^\s]++)++/", $this->data, $hosts);
+            
+            // Check if the user has privileges.
+            $this->bot->log('Requesting privileges for host ' . $hosts[0] . '...');
+            if (!in_array($hosts[0], $config['hosts']))
+            {
+                // Nope. No access for you.
+                $this->bot->log('Failed; this host is not trusted.');
+                return false;
+            }
+            else
+                return true;
         }
 
         /**

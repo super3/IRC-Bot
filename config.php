@@ -6,7 +6,7 @@ return array(
     'password' => '',
     'nick'     => 'phpbot',
     'channels' => array(
-        '#phpbot404',
+        '#wildphp',
     ),
     'timezone' => 'America/New_York',
     'max_reconnects' => 1,
@@ -20,7 +20,7 @@ return array(
         'Command\Ip'      => array(),
         'Command\Imdb'    => array(),
         'Command\Poke'    => array(),
-        'Command\Topic' => array(),
+        'Command\Topic'   => array(),
         'Command\Join'    => array(),
         'Command\Part'    => array(),
         'Command\Timeout' => array(),

@@ -26,6 +26,11 @@ Web
 * !poke [#channel] [username] - Pokes the specified IRC user.
 * !joke - Returns random joke. Fetched from [ICNDb.com](http://www.icndb.com/).
 * !imdb [movie title] - Searches for movie and returns it's information.
+* 
+
+### Command Arguments
+A change has been made as of 5/1/2015 which means that `-1` for `$numberOfArguments` will now not work as it used to. `-1` will not accept no arguments, only 1+.
+Please use `$numberOfArguments = [0, -1];` to emulate the same functionality as before.
 
 
 ### Listeners

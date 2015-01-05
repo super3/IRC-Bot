@@ -11,7 +11,7 @@ IRC Community & Support
 -------
 
 If you need support or just want to idle in the channel our IRC Channel is
-[#wildphp@irc.quakenet.org](http://webchat.quakenet.org/?channels=wildphp)
+[#wildphp@irc.freenode.net](http://webchat.freenode.net/?channels=wildphp)
 
 ## Features and Functions
 

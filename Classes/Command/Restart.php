@@ -29,18 +29,25 @@ class Restart extends \Library\IRC\Command\Base {
      *
      * @var integer
      */
-    protected $numberOfArguments = 0;
+    protected $numberOfArguments = array(0, -1);
 
     /**
      * Restarts the bot.
      */
     public function command() {
+        if (count($this->arguments) == 0) {
+            $message = 'Restarting...';
+        }
+        else {
+            $message = trim(preg_replace('/\s\s+/', ' ',  implode(' ', $this->arguments)));
+        }
+        
         // Exit from Sever
-        $this->connection->sendData('QUIT :Restarting...');
-		
-		// Wait 5 Seconds Before Rejoin
-		sleep(5);
-		
+        $this->connection->sendData('QUIT :' . $message);
+
+        // Wait 5 Seconds Before Rejoin
+        sleep(5);
+
         // Reconnect to Server
         $this->bot->connectToServer();
     }

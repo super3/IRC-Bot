@@ -29,13 +29,20 @@ class Quit extends \Library\IRC\Command\Base {
      *
      * @var integer
      */
-    protected $numberOfArguments = 0;
+    protected $numberOfArguments = array(0, -1);
 
     /**
      * Leave IRC altogether. This disconnects from the server.
      */
     public function command() {
-        $this->connection->sendData('QUIT');
+        if (count($this->arguments) == 0) {
+            $message = 'Quit: WildPHP <http://wildphp.com/>';
+        }
+        else {
+            $message = trim(preg_replace('/\s\s+/', ' ',  implode(' ', $this->arguments)));
+        }
+
+        $this->connection->sendData('QUIT :' . $message);
         exit;
     }
 }

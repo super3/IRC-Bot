@@ -20,6 +20,7 @@ return array(
         'Command\Ip'      => array(),
         'Command\Imdb'    => array(),
         'Command\Poke'    => array(),
+        'Command\Topic' => array(),
         'Command\Join'    => array(),
         'Command\Part'    => array(),
         'Command\Timeout' => array(),

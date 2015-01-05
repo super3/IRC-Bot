@@ -23,6 +23,13 @@ class Restart extends \Library\IRC\Command\Base {
      * @var bool
      */
     protected $verify = true;
+    
+    /**
+     * The number of arguments the command needs.
+     *
+     * @var integer
+     */
+    protected $numberOfArguments = 0;
 
     /**
      * Restarts the bot.

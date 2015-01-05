@@ -126,17 +126,41 @@
 
             // If a number of arguments is incorrect then run the command, if
             // not then show the relevant help text.
-            if ($this->numberOfArguments != -1 && count( $arguments ) != $this->numberOfArguments) {
-                // Show help text.
-                $this->say(' Incorrect Arguments. Usage: ' . $this->getHelp());
+            // This is fugly, but it works.
+            
+            // If it's an int...
+            if (is_numeric($this->numberOfArguments))
+            {
+                if (($this->numberOfArguments === -1 && count($arguments) == 0) || ($this->numberOfArguments !== -1 && count($arguments) != $this->numberOfArguments))
+                {
+                    $this->say('Error: illegal amount of arguments. For help, use !help ' . str_replace('Command\\', '', get_class($this)));
+                    return;
+                }
             }
-            else {
-                // Set Arguments
-                $this->arguments = $arguments;
+            
+            // But if it's an array... An array means this command can take multiple counts of arguments, and react accordingly.
+            elseif (is_array($this->numberOfArguments))
+            {
+                if (!((in_array(count($arguments), $this->numberOfArguments)) || (in_array(-1, $this->numberOfArguments) && count($arguments) >= 1)))
+                {
+                    $this->say('Error: illegal amount of arguments. For help, use !help ' . str_replace('Command\\', '', get_class($this)));
+                    return;
+                }
+            }
+            
+            // Some safeguarding here.
+            else
+            {
+                $this->bot->log(get_class($this) . ': No number of arguments variable set. Please add the $numberOfArguments variable to your command file.');
+                $this->bot->log('This command will not work until fixed.');
+                return;
+            }
+            
+            // Set Arguments
+            $this->arguments = $arguments;
 
-                // Execute the command.
-                $this->command();
-            }
+            // Execute the command.
+            $this->command();
         }
 
         /**

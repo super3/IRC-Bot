@@ -7,6 +7,12 @@ Web
 * Official Website: [http://wildphp.com](http://wildphp.com), Source Code: [Github](https://github.com/pogosheep/IRC-Bot)
 * Major Contributors: [Super3](http://super3.org), [Pogosheep](http://layne-obserdia.de), [Matejvelikonja](http://velikonja.si)
 
+IRC Community & Support
+-------
+
+If you need support or just want to idle in the channel our IRC Channel is
+[#wildphp@irc.quakenet.org](http://webchat.quakenet.org/?channels=wildphp)
+
 ## Features and Functions
 
 ### Standard Commands
@@ -26,7 +32,6 @@ Web
 * !poke [#channel] [username] - Pokes the specified IRC user.
 * !joke - Returns random joke. Fetched from [ICNDb.com](http://www.icndb.com/).
 * !imdb [movie title] - Searches for movie and returns it's information.
-* 
 
 ### Command Arguments
 A change has been made as of 5/1/2015 which means that `-1` for `$numberOfArguments` will now not work as it used to. `-1` will not accept no arguments, only 1+.

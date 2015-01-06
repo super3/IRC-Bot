@@ -26,6 +26,7 @@ return array(
         'Command\Timeout' => array(),
         'Command\Quit'    => array(),
         'Command\Restart' => array(),
+        'Command\Help'    => array(),
     ),
     'listeners' => array(
         'Listener\Joins' => array(),

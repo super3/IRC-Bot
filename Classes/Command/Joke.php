@@ -16,7 +16,14 @@ class Joke extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!joke';
+    protected $help = 'Return a random joke.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!joke';
 
     /**
      * The number of arguments the command needs.

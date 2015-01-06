@@ -11,11 +11,18 @@ namespace Command;
  */
 class Quit extends \Library\IRC\Command\Base {
     /**
-    * The command's help text.
-    *
-    * @var string
-    */
-    protected $help = '!quit';
+     * The command's help text.
+     *
+     * @var string
+     */
+    protected $help = 'Shut the bot down.';
+
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!quit';
     
     /**
      * Verify the user before executing this command.

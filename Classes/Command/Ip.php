@@ -15,7 +15,14 @@ class Ip extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!ip';
+    protected $help = 'Give the IP of the user issuing the command.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!ip';
 
     /**
      * The number of arguments the command needs.

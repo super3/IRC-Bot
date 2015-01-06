@@ -16,7 +16,14 @@ class Join extends \Library\IRC\Command\Base {
     *
     * @var string
     */
-    protected $help = '!join [#channel]';
+    protected $help = 'Make the bot join a channel.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!join [#channel]';
 
     /**
      * The number of arguments the command needs.

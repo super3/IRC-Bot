@@ -69,15 +69,24 @@
          * @var integer
          */
         protected $numberOfArguments = 0;
+        
+        /**
+         * The help string, shown to the user when using the !help command.
+         *
+         * This is optional to define in the command, but it is recommended you do.
+         *
+         * @var string
+         */
+        protected $help = '';
 
         /**
-         * The help string, shown to the user if he calls the command with wrong parameters.
+         * The usage string, shown to the user if the user calls the command with wrong parameters.
          *
          * You have to define this in the command.
          *
          * @var string
          */
-        protected $help = '';
+        protected $usage = '';
         
         /**
          * Verify the user before executing a command.
@@ -106,12 +115,12 @@
             $this->data = $data;
             
             // Do we verify the legitimacy of the user executing?
-            if (!empty($this->verify) && !$this->verifyUser())
+            if ($this->needsVerification() && !$this->verifyUser())
             {
                 $this->bot->log('Failed to request permission; aborting command.');
                 return;
             }
-            elseif (!empty($this->verify))
+            elseif ($this->needsVerification())
                 $this->bot->log('Success; proceeding with command.');
 
             // If a number of arguments is incorrect then run the command, if
@@ -185,9 +194,21 @@
                     'PRIVMSG ' . $this->source . ' :' . $msg
             );
         }
-
-        private function getHelp() {
-           return $this->help;
+	
+	/**
+	 * Get help for the command being run.
+	 */
+        public function getHelp() {
+           if (!empty($this->help))
+                return array($this->help, $this->usage);
+        }
+        
+        /**
+         * Check if the current commands requires verification.
+         */
+        public function needsVerification()
+        {
+                return !empty($this->verify);
         }
 
         /**

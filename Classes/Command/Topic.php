@@ -16,7 +16,14 @@ class Topic extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!topic';
+    protected $help = 'Set the topic for a channel. The bot needs to be OP in said channel.';
+
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!topic [optional #channel] [message]';
 
     /**
      * Verify the user before executing this command.

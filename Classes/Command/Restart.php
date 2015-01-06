@@ -11,11 +11,18 @@ namespace Command;
  */
 class Restart extends \Library\IRC\Command\Base {
     /**
-    * The command's help text.
-    *
-    * @var string
-    */
-    protected $help = '!restart';
+     * The command's help text.
+     *
+     * @var string
+     */
+    protected $help = 'Reconnect the bot to the network. Does not reload plugins.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!restart';
     
     /**
      * Verify the user before executing this command.

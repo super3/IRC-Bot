@@ -16,7 +16,14 @@ class Timeout extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!timeout [seconds]';
+    protected $help = 'Disconnect the bot for the specified number of seconds.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!timeout [seconds]';
 
     /**
      * The number of arguments the command needs.

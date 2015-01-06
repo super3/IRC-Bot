@@ -12,11 +12,18 @@ namespace Command;
  */
 class Part extends \Library\IRC\Command\Base {
     /**
-    * The command's help text.
-    *
-    * @var string
-    */
-    protected $help = '!part [#channel]';
+     * The command's help text.
+     *
+     * @var string
+     */
+    protected $help = 'Make the bot leave a channel.';
+     
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!part [#channel]';
 
     /**
      * The number of arguments the command needs.

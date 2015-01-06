@@ -106,12 +106,12 @@
             $this->data = $data;
             
             // Do we verify the legitimacy of the user executing?
-            if (empty($this->verify) || !$this->verifyUser())
+            if (!empty($this->verify) && !$this->verifyUser())
             {
                 $this->bot->log('Failed to request permission; aborting command.');
                 return;
             }
-            else
+            elseif (!empty($this->verify))
                 $this->bot->log('Success; proceeding with command.');
 
             // If a number of arguments is incorrect then run the command, if

@@ -16,8 +16,20 @@ class Imdb extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!imdb [movie title]';
+    protected $help = 'Get information about IMDB movies.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!imdb [movie title]';
 
+    /**
+     * The API URL used for this command.
+     *
+     * @var string
+     */
     private $apiUri = 'http://imdbapi.org/?title=%s&type=json&plot=none&episode=0&limit=1&yg=0&mt=none&lang=en-US&offset=&aka=full&release=simple&business=0&tech=0';
 
     /**

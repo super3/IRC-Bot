@@ -13,11 +13,18 @@ namespace Command;
  */
 class Poke extends \Library\IRC\Command\Base {
     /**
-    * The command's help text.
-    *
-    * @var string
-    */
-    protected $help = '!poke [#channel]or[user] [user]';
+     * The command's help text.
+     *
+     * @var string
+     */
+    protected $help = 'Poke someone.';
+    
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!poke [#channel]or[user] [user]';
 
     /**
      * The number of arguments the command needs.

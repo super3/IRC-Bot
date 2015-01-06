@@ -17,7 +17,14 @@ class Say extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!say [#channel|username] whatever you want to say';
+    protected $help = 'Make the bot say something in a channel or to a user.';
+
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!say [#channel|username] whatever you want to say';
 
     /**
      * The number of arguments the command needs.

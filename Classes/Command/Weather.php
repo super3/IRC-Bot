@@ -17,7 +17,14 @@ class Weather extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $help = '!weather [location]';
+    protected $help = 'Returns the weather conditions for the specified location.';
+
+    /**
+     * How to use the command.
+     *
+     * @var string
+     */
+    protected $usage = '!weather [location]';
 
     /**
      * Yahoo API key.

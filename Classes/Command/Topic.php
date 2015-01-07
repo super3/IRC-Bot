@@ -23,7 +23,7 @@ class Topic extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!topic [optional #channel] [message]';
+    protected $usage = 'topic [optional #channel] [message]';
 
     /**
      * Verify the user before executing this command.

@@ -23,7 +23,7 @@ class Imdb extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!imdb [movie title]';
+    protected $usage = $this->bot->commandPrefix . 'imdb [movie title]';
 
     /**
      * The API URL used for this command.

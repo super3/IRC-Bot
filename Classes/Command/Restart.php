@@ -22,7 +22,7 @@ class Restart extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!restart';
+    protected $usage = 'restart';
     
     /**
      * Verify the user before executing this command.

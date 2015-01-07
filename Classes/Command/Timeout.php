@@ -23,7 +23,7 @@ class Timeout extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!timeout [seconds]';
+    protected $usage = 'timeout [seconds]';
 
     /**
      * The number of arguments the command needs.

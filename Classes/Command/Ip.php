@@ -22,7 +22,7 @@ class Ip extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!ip';
+    protected $usage = 'ip';
 
     /**
      * The number of arguments the command needs.

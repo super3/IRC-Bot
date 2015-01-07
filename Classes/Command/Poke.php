@@ -24,7 +24,7 @@ class Poke extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!poke [#channel]or[user] [user]';
+    protected $usage = 'poke [#channel]or[user] [user]';
 
     /**
      * The number of arguments the command needs.

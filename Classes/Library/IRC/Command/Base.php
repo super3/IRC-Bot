@@ -71,7 +71,7 @@
         protected $numberOfArguments = 0;
         
         /**
-         * The help string, shown to the user when using the !help command.
+         * The help string, shown to the user when using the help command.
          *
          * This is optional to define in the command, but it is recommended you do.
          *
@@ -132,7 +132,7 @@
             {
                 if (($this->numberOfArguments === -1 && count($arguments) == 0) || ($this->numberOfArguments !== -1 && count($arguments) != $this->numberOfArguments))
                 {
-                    $this->say('Error: illegal amount of arguments. For help, use !help ' . str_replace('Command\\', '', get_class($this)));
+                    $this->say('Error: illegal amount of arguments. For help, use ' . $this->bot->commandPrefix . 'help ' . str_replace('Command\\', '', get_class($this)));
                     return;
                 }
             }
@@ -142,7 +142,7 @@
             {
                 if (!((in_array(count($arguments), $this->numberOfArguments)) || (in_array(-1, $this->numberOfArguments) && count($arguments) >= 1)))
                 {
-                    $this->say('Error: illegal amount of arguments. For help, use !help ' . str_replace('Command\\', '', get_class($this)));
+                    $this->say('Error: illegal amount of arguments. For help, use' . $this->bot->commandPrefix . 'help ' . str_replace('Command\\', '', get_class($this)));
                     return;
                 }
             }

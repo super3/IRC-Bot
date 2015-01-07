@@ -14,7 +14,7 @@ class Help extends \Library\IRC\Command\Base
      *
      * @var string
      */
-    protected $usage = '!help [optional command]';
+    protected $usage = 'help [optional command]';
     
     /**
      * The number of arguments the command needs.
@@ -67,7 +67,7 @@ class Help extends \Library\IRC\Command\Base
                     }
                     $help = $details->getHelp();
                     $this->say($name . ': ' . $help[0] . ($details->needsVerification() ? ' (verified users only)' : ''));
-                    $this->say('Command usage: ' . $help[1]);
+                    $this->say('Command usage: ' . $this->bot->commandPrefix . $help[1]);
                     return;
                 }
             }

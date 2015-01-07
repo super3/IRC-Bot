@@ -23,7 +23,7 @@ class Joke extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!joke';
+    protected $usage = 'joke';
 
     /**
      * The number of arguments the command needs.

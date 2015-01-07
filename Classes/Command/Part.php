@@ -23,7 +23,7 @@ class Part extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!part [#channel]';
+    protected $usage = 'part [#channel]';
 
     /**
      * The number of arguments the command needs.

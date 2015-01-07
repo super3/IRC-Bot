@@ -22,7 +22,7 @@ class Quit extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!quit';
+    protected $usage = 'quit';
     
     /**
      * Verify the user before executing this command.

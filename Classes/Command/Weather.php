@@ -24,7 +24,7 @@ class Weather extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!weather [location]';
+    protected $usage = 'weather [location]';
 
     /**
      * Yahoo API key.

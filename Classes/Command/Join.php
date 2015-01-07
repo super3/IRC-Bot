@@ -23,7 +23,7 @@ class Join extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    protected $usage = '!join [#channel]';
+    protected $usage = 'join [#channel]';
 
     /**
      * The number of arguments the command needs.

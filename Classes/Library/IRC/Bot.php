@@ -191,7 +191,9 @@ class Bot {
      * @author Daniel Siepmann <coding.layne@me.com>
      */
     private function main() {
-        do {
+        global $config;
+		$this->commandPrefix = $config['prefix'];
+		do {
             $command = '';
             $arguments = array ( );
             $data = $this->connection->getData();

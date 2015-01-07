@@ -30,7 +30,7 @@ class Imdb extends \Library\IRC\Command\Base {
      *
      * @var string
      */
-    private $apiUri = 'http://imdbapi.org/?title=%s&type=json&plot=none&episode=0&limit=1&yg=0&mt=none&lang=en-US&offset=&aka=full&release=simple&business=0&tech=0';
+    private $apiUri = 'http://omdbapi.com/?t=%s&r=json&plot=short';
 
     /**
      * The number of arguments the command needs.
@@ -61,9 +61,10 @@ class Imdb extends \Library\IRC\Command\Base {
 
         $json = json_decode($getJson, true);
 
-        $title     = $json[0]['title'];
-        $rating    = $json[0]['rating'];
-        $imdbUrl   = $json[0]['imdb_url'];
+        $title     = $json['Title'];
+        $rating    = $json['imdbRating'];
+        $shortPlot = $json['Plot'];
+        $link      = 'http://www.imdb.com/title/' . $json['imdbID'];
 
         /*
          * Check if response is given
@@ -73,6 +74,7 @@ class Imdb extends \Library\IRC\Command\Base {
             return;
         }
 
-        $this->say(sprintf('Title: %s | Rating: %s | %s', $title, $rating, $imdbUrl));
+        $this->say(sprintf('Title: %s | Rating: %s | %s | %s', $title, $rating, $shortPlot, $link));
     }
 }
+

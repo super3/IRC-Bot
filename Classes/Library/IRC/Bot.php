@@ -272,7 +272,7 @@ class Bot {
 
                 // Check if the response was a command.
                 if (stripos( $command, $this->commandPrefix ) === 0) {
-                    $command = ucfirst( substr( $command, 1 ) );
+                    $command = ucfirst( substr( $command, strlen($this->commandPrefix) ) );
                     // Command does not exist:
                     if (!array_key_exists( $command, $this->commands )) {
                         $this->log( 'The following, not existing, command was called: "' . $command . '".', 'MISSING' );

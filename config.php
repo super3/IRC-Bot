@@ -10,6 +10,7 @@ return array(
     ),
     'timezone' => 'America/New_York',
     'max_reconnects' => 1,
+    'prefix'         => '!',
     'log_file'       => 'log.txt',
     'commands'       => array(
         'Command\Say'     => array(),

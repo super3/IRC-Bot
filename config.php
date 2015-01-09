@@ -11,7 +11,16 @@ return array(
     'timezone' => 'America/New_York',
     'max_reconnects' => 1,
     'prefix'         => '!',
-    'log_file'       => 'log.txt',
+    'log' => array(
+        'file'       => 'log', // No file extension!
+        'dir'        => ROOT_DIR . '/Logs',
+
+        // Set this if you want only output from specific channel(s) to show up.
+        // This will not log any other output, so this is not useful for debugging.
+        // This is particularly useful if you use public logs.
+        // Can contain multiple channels.
+        'filter'     => array('#NanoPlayground'),
+    ),
     'commands'       => array(
         'Command\Say'     => array(),
         'Command\Weather' => array(

@@ -239,6 +239,10 @@ class Bot {
             if ($args[0] == 'PING') {
                 $this->sendDataToServer( 'PONG ' . $args[1] );
             }
+	    
+
+	    // Try to flush log buffers, if needed.
+	    $this->log->intervalFlush();
 
             // Nothing new from the server, step over.
             if ($args[0] == 'PING' || !isset($args[1])) {
@@ -351,7 +355,11 @@ class Bot {
      * @author Daniel Siepmann <coding.layne@me.com>
      */
     public function sendDataToServer( $cmd ) {
-        $this->log( $cmd, 'COMMAND' );
+	// Don't log passwords.
+	if (mb_substr($cmd, 0, 4) != 'PASS')
+		$this->log( $cmd, 'COMMAND' );
+	else
+		$this->log('PASS *****', 'COMMAND');
         $this->connection->sendData( $cmd );
     }
 
@@ -373,25 +381,13 @@ class Bot {
     }
 
     /**
-     * Adds a log entry to the log file.
+     * Adds a log entry to the log file. Redirects to the LogManager for legacy purposes.
      *
      * @param string $log    The log entry to add.
      * @param string $status The status, used to prefix the log entry.
-     *
-     * @author Daniel Siepmann <coding.layne@me.com>
      */
     public function log( $log, $status = '' ) {
-        if (empty( $status )) {
-            $status = 'LOG';
-        }
-
-        $msg = date( 'd.m.Y - H:i:s' ) . "\t  [ " . $status . " ] \t" . \Library\FunctionCollection::removeLineBreaks( $log ) . "\r\n" ;
-
-        echo $msg;
-
-        if (!is_null( $this->logFileHandler )) {
-            fwrite( $this->logFileHandler, $msg);
-        }
+	$this->log->log($log, $status);
     }
 
     // Setters
@@ -477,24 +473,15 @@ class Bot {
     public function setMaxReconnects( $maxReconnects ) {
         $this->maxReconnects = (int) $maxReconnects;
     }
-
+    
     /**
-     * Sets the filepath to the log. Specify the folder and a prefix.
-     * E.g. /Users/yourname/logs/ircbot- That will result in a logfile like the following:
-     * /Users/yourname/logs/ircbot-11-12-2012.log
-     *
-     * @param string $logFile The filepath and prefix for a logfile.
+     * Setup the LogManager instance pointed at.
+     * @param object $log The LogManager instance.
      */
-    public function setLogFile( $logFile ) {
-        $this->logFile = (string) $logFile;
-        if (!empty( $this->logFile )) {
-            $logFilePath = dirname( $this->logFile );
-            if (!is_dir( $logFilePath )) {
-                mkdir( $logFilePath, 0777, true );
-            }
-            $this->logFile .= date( 'd-m-Y' ) . '.log';
-            $this->logFileHandler = fopen( $this->logFile, 'w+' );
-        }
+    public function setupLogging($log)
+    {
+    	if (is_object($log))
+	    	$this->log = $log;
     }
 
     public function getCommands() {

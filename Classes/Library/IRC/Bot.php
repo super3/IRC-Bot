@@ -481,7 +481,10 @@ class Bot {
     public function setupLogging($log)
     {
     	if (is_object($log))
+	{
 	    	$this->log = $log;
+		$this->log->setBot($this);
+	}
     }
 
     public function getCommands() {

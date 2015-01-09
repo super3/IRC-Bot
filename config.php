@@ -40,6 +40,7 @@ return array(
     ),
     'listeners' => array(
         'Listener\Joins' => array(),
+        'Listener\Youtube' => array(),
     ),
     'hosts' => array(
         'Add trusted hosts in here. Example: example@example.com if no ident server ~example@example.com',

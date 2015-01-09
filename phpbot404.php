@@ -52,7 +52,12 @@
         $bot->setPassword ( $config['password'] );
     }
     $bot->setMaxReconnects( $config['max_reconnects'] );
-    $bot->setLogFile( $config['log_file'] );
+    
+    // Initialise the LogManager.
+    $log = new Library\IRC\Log($config['log']);
+    
+    // Attach the LogManager instance to the Bot.
+    $bot->setupLogging($log);
 
     // Add commands to the bot.
     foreach ($config['commands'] as $commandName => $args) {

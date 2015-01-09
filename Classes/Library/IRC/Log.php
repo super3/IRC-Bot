@@ -12,6 +12,12 @@ namespace Library\IRC;
 class Log
 {
 	/**
+	 * The Bot object. Used to interact with the main thread.
+	 * @var object
+	 */
+	protected $bot;
+
+	/**
 	 * Use a buffer to temporarily store data in. Useful on systems with slow disk access.
 	 * @var bool
 	 */
@@ -193,6 +199,15 @@ class Log
 	{
 		// The log has a buffer if the buffer is enabled and not empty.
 		return ($this->useBuffer && !empty($this->buffer));
+	}
+	
+	/**
+	 * Set the bot instance.
+	 */
+	public function setBot($bot)
+	{
+		if (is_object($bot))
+			$this->bot = $bot;
 	}
 }
 ?>

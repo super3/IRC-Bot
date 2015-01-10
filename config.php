@@ -37,6 +37,7 @@ return array(
         'Command\Quit'    => array(),
         'Command\Restart' => array(),
         'Command\Help'    => array(),
+		'Command\Update'  => array(),
     ),
     'listeners' => array(
         'Listener\Joins' => array(),
